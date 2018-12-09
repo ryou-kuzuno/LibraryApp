@@ -1,0 +1,56 @@
+<%= link_to "新着一覧に戻ります", "/index"%>
+<div class="card-show">
+  <div class="card-image">
+    <%= image_tag @book.image %>
+  </div>
+  <div class="card-right">
+    <p>作者</p>
+    <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
+    <h1><%= @book.author%></h1>
+    <p>タイトル</p>
+    <h1><%= @book.title %></h1>
+  </div>
+  <%#  1つの本に対して感想は複数存在する %>
+    <div class="card-text">  
+      <% @impressions.each_with_index do |impressions,index| %>
+        <p>題名</p> 
+        <%= impressions.story %>
+        <p>かんそう</p>
+        <%= impressions.impressions %>
+          <div class="card-under"> 
+            <div>
+              <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+              <%  #メモ
+                  # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+                  # パラメータを渡してなにか処理をする、といった場合はformを使う
+                  #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+              %>
+                <%= link_to "/likes/#{impressions.id}/destroy",{impression_id: impressions.id  , :method => :post} do %>  <span class="material-icons hart">favorite</span>
+                <%= impressions.likes.count %>
+                <% end %>
+              <% else %>
+                <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
+                  <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+                    <%= form.hidden_field :user_id, :value => @current_user.id %>
+                  <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
+                    <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
+                    <%= impressions.likes.count %>
+                    <%= form.hidden_field :user_id, :value => @current_user.id %>
+                    <%= form.hidden_field :impression_id, :value => impressions.id %>
+                    <%= form.hidden_field :book_id, :value => impressions.id %>
+                  <% end %>
+              <% end %>
+          </div>
+        </div>
+        <div>
+          <% if @current_user.id == impressions.user.id %>
+            <%= link_to "編集", "/#{impressions.id}/edit"%>
+            <%= link_to "削除", "/#{impressions.id}/destroy", :method => :post %>
+          <% end%>
+        </div>
+      </div>
+      <% end %>
+</div>
+
+<% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
+<%= render partial: 'books/cards/comments', locals: { comment: @comments, new_comment: @new_comment, book_id: @book.id } %>

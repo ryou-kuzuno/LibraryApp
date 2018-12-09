@@ -1,0 +1,79 @@
+.header {
+    // overflow: visible;
+    position: fixed;
+    top: 0;/*基準を画面の左上に*/
+    left: 0;
+    /*以下装飾*/
+    width: 100%;
+    color:rgb(5, 5, 5);
+}
+
+.header-div {
+        display: flex;
+        text-align: center;
+        height: 75px;
+        box-shadow: 0 2px 6px #c1ced7;
+        background-color: #e0e7e8;
+    ul {
+        display: flex;
+        list-style: none;
+        height: 30px;
+        margin: 16px;
+        padding: 0px;
+        li {
+            // text-decoration: none;
+            justify-content: flex-start;
+            border-left: solid 1px rgb(229, 255, 0);
+            font-size: 18px;
+            margin: 0 5px;
+            padding: 3px;
+            }
+        li:last-child {
+            border-right: solid 1px rgb(229, 255, 0);
+            padding: 0 8 px;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    
+
+    .search {
+        display: flex;
+    }
+
+    .hidden_box {
+        margin: 2em 0;/*前後の余白*/
+        padding: 0;
+
+        label {
+            padding: 5px;
+            font-weight: bold;
+            cursor :pointer;
+            border-radius: 5%;//  角に丸みをつけるプロパティ
+        }
+
+        label:hover {
+            color: #efefef;
+            background-color: #000000;
+        }
+
+        input {
+            display: none;
+        }
+
+        .hidden_show {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: 0.8s;
+        }
+
+        input:checked ~ .hidden_show {
+            padding: 20px 0;
+            height: auto;
+            opacity: 1;
+        }
+    }
+}

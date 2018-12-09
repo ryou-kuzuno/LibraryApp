@@ -1,0 +1,23 @@
+<div class="form-heading">ログイン画面</div>
+<div class="form">
+  <div class="form-body"> 
+    <% if @error_message %>
+      <div class="form-error">
+        <%= @error_message %>
+      </div>
+    <% end %>
+    <%= form_for @user, url: { 'controller' => 'users', 'action' => 'login'} do |form| %>
+      <div>
+        <%= form.label :メール %>
+        <%= form.email_field :mail %>
+      </div>
+      <div>
+        <%= form.label :パスワード %>
+        <%= form.password_field :password %>
+      </div>
+      <div>
+        <%= form.submit 'ログイン' %>
+      </div>
+    <% end %>
+  </div>
+</div>

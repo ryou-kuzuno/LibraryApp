@@ -1,0 +1,23 @@
+<div class="user">
+  <h2><%= @user.nicename %></h2>
+  <%# user.mailと編集リンクを表示 %>
+  <% if @user.id == @current_user.id %>
+    <p><%= @user.mail %></p>
+    <p><%= link_to("編集", "/users/#{@user.id}/edit") %></p>
+  <% end %>
+</div>
+
+<div class="switch">
+  <ul>
+    <li><%= link_to "投稿", "/users/#{@user.id}" %></li>
+    <li class="active"><%= link_to "押忍", "/users/#{@user.id}/likes" %></li>
+  </ul>
+</div>
+
+<%# お気に入りがあるなら表示 %>
+<% @likes.each do |like| %>
+  <div class="user_story">
+    <%= like.user.nicename%>
+    <%= like.impression.story%>
+  </div>
+<% end%>

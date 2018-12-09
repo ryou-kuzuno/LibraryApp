@@ -1,0 +1,19 @@
+<%= form_for @impression , url: {controller: :books, action: :update} do |imp|%>
+  <div class="card">
+    <div class="card-text">
+      <div class="story">
+        <%= imp.label :あらすじ %>
+        <%= imp.text_area :story  %>
+      </div>
+      <div class="impressions">
+        <%= imp.label :感想 %>
+        <%= imp.text_area :impressions%>
+      </div>
+    </div>
+      <div class="save_form">
+        <%= imp.submit '保存' %>
+      </div>
+<% end %>
+      <%= link_to "削除", "/#{@impression.book_id}/destroy", {method: "post"} %>
+     <%= link_to "戻る", "/show/#{@impression.book_id}.id"%>
+    </div>

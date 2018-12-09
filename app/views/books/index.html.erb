@@ -1,0 +1,15 @@
+<p>新着一覧</p>
+
+<div class="recently">
+    <p>最近読まれた本</p>
+
+    <% @test.each_with_index do |book , index|%>
+    <div class="image">
+      <%= image_tag book.image  %>
+    </div>
+    <div class="title">
+      <%= link_to book.title , "/show/#{book.id}" %>
+    </div>
+    <% end%>
+</div>
+<%= render partial: 'books/cards/cards' %>

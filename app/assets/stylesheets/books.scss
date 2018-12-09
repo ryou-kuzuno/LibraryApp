@@ -1,0 +1,36 @@
+// Place all the styles related to the Books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.content {
+    /* headerの高さと同じにする */
+    margin: 200px 0 0 150px;
+}
+
+.hart {
+    color: red;
+    float: left;
+    cursor: pointer;
+}
+
+.image_up {
+    background-color: yellow;
+}
+
+.write-modal {
+    cursor: pointer;
+}
+.write {
+    position: fixed;
+    top: 20%;
+    left: 34%;
+    background-color: #e6ecf0;
+    padding: 20px 0 40px;
+    border-radius: 10px;
+    width: 450px;
+    height: auto;
+    text-align: center;
+    display: none;
+    p {
+        cursor: pointer;
+    }
+}
