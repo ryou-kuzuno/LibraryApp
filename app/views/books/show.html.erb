@@ -17,8 +17,8 @@
         <%= impressions.story %>
         <p>かんそう</p>
         <%= impressions.impressions %>
-          <div class="card-under"> 
-            <div>
+          <div class="card-under">
+            <div date-option="true" >
               <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
               <%  #メモ
                   # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
@@ -28,6 +28,7 @@
                 <%= link_to "/likes/#{impressions.id}/destroy",{impression_id: impressions.id  , :method => :post} do %>  <span class="material-icons hart">favorite</span>
                 <%= impressions.likes.count %>
                 <% end %>
+            </div>
               <% else %>
                 <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
                   <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
@@ -54,3 +55,9 @@
 
 <% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
 <%= render partial: 'books/cards/comments', locals: { comment: @comments, new_comment: @new_comment, book_id: @book.id } %>
+
+<script>
+  if ($('.card-under').hasClass('true')) {
+    
+  }
+</script>
