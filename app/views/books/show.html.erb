@@ -25,7 +25,7 @@
           # パラメータを渡してなにか処理をする、といった場合はformを使う
           #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
           %>
-              <span date-option="like_one" class="material-icons hart">favorite</span>
+              <span date-option=true class="material-icons hart">favorite</span>
             <%= impressions.likes.count %>
           <% else %>
             <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
@@ -52,8 +52,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
  <script>
 $(function() {
-  $('.material-icons').on('click', function() {
-  if ($('like_one' == true){
+    $('.material-icons').on('click', function() {
+      if ($(my_like == true){
     $.ajax({
         url:'/likes/#{impressions.id}/destroy',
         type:'POST',
@@ -71,9 +71,9 @@ $(function() {
           'book_id'$('impressions.id').val()
         }
       })
-    }
+    };
 
-  })}
+  })};
 });
  </script>
 
