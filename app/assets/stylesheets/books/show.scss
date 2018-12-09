@@ -1,5 +1,13 @@
 .card-show {
     img {
-        width: 80%;
+        width: 30%;
+    }
+}
+
+.card-under {
+    clear: both; //回避？
+    :hover{
+        color: rgb(255, 81, 0);
+        cursor: pointer;
     }
 }
