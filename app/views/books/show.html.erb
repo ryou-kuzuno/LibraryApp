@@ -1,5 +1,6 @@
 <%= link_to "新着一覧に戻ります", "/index"%>
-<div class="card-show">
+<% # この部分は、唯一の要素としたいので、idで要素を指定している %>
+<div class="card-show" id="js-card-show" data-user-id="<%= @current_user.id %>" data-book-id="<%= @book.id %>">
   <div class="card-image">
     <%= image_tag @book.image %>
   </div>
@@ -16,25 +17,29 @@
   </div>
   <%#  1つの本に対して感想は複数存在する %>
   <div class="card-text">
-    <% @impressions.each_with_index do |impressions,index| %>
+    <% @impressions.each_with_index do |impressions, index| %>
     <p>題名</p>
-    <%= impressions.story %>
+    <p>
+      <%= impressions.story %>
+    </p>
     <p>かんそう</p>
-    <%= impressions.impressions %>
+    <p>
+      <%= impressions.impressions %>
+    </p>
 
     <div class="card-under">
       <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
       <%  #メモ
-          # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
-          # パラメータを渡してなにか処理をする、といった場合はformを使う
-          #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
-          %>
-      <span date-option=true class="material-icons hart">favorite</span>
+            # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+            # パラメータを渡してなにか処理をする、といった場合はformを使う
+            #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+            %>
+      <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart">favorite</span>
       <%= impressions.likes.count %>
       <% else %>
       <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
       <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
-      <span date-option="like_one" class="material-icons" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>
+      <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
       <%= impressions.likes.count %>
       <% end %>
     </div>
@@ -56,35 +61,68 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
   $(function () {
-        $('.material-icons').on('click', function () {
-            if ($(my_like == true) {
-                $.ajax({
-                  url: '/likes/#{impressions.id}/destroy',
-                  type: 'POST',
-                  date: {
-                    'impression_id'
-                    $('impressions.id').val()
-                  }
-                })
-                else {
-                  $.ajax({
-                    // likes_create_path
-                    url: '/likes/#{impressions.id}/create',
-                    type: 'POST',
-                    date: {
-                      'user_id'
-                      $('@current_user.id').val(),
-                      'impression_id'
-                      $('impressions.id').val(),
-                      'book_id'
-                      $('impressions.id').val()
-                    }
-                  })
-                };
+    // userIdとbookIdはページローディング時に毎回固定されるので、一度だけ読み込むようにする
+    var userId = $("#js-card-show").data("user-id");
+    var bookId = $("#js-card-show").data("book-id");
 
-              })
-          };
-        });
+    $('.material-icons').on('click', function () {
+      // @current_user.idなどをJavaScriptには直接記述できない
+      // そのため、カスタムdata属性を使って、予めHTMLに埋め込んでおき、JavaScript実行時にその値を取り出して利用する
+      var self = $(this); // JavaScript（jQuery）では、thisのスコープが呼び出す部分で変わるのでselfという変数に退避しておくことがよくある。
+      var hasMyLike = self.data("liked");
+      var impressionId = self.data("impression-id");
+      if (hasMyLike === true) {
+        $.ajax({
+            url: '/likes/' + impressionId + '/destroy',
+            type: 'POST',
+            data: {
+              'impression_id': impressionId,
+            }
+          }).done((data) => {
+            console.log("success");
+          })
+          .fail((data) => {
+            console.log("fail");
+          })
+          .always((data) => {
+            console.log("always");
+          });
+      } else {
+        $.ajax({
+            // likes_create_path
+            url: '/likes/' + impressionId + '/create',
+            type: 'POST',
+            dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
+            timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
+            data: {
+              'user_id': userId,
+              'impression_id': impressionId,
+              'book_id': bookId,
+            }
+          }).done((data) => {
+            // doneの場合（処理が成功した場合）は、dataに’リクエスト形式のデータが入る（json）
+            console.log(data);
+
+            // +1をjQueryを使って行う
+            // @todo
+
+            // data-likedの値を更新する
+            self.data("liked") = true;
+            
+            console.log("success");
+          })
+          .fail((data) => {
+            // failの場合は、dataにエラーメッセージが入っている
+            console.log(data);
+            console.log("fail");
+          })
+          .always((data) => {
+            console.log("always");
+          });
+      }
+
+    });
+  });
 </script>
 
 <%
@@ -105,6 +143,7 @@
     // forms ... documentにぶら下がっているform一覧。formのidで区別可能
     // forms[id] ... 指定されたid名でformを識別する
     // submit ... submitボタンを押したのと同じ効果
+    console.log(id);
     document.forms[id].submit();
   }
 </script>
