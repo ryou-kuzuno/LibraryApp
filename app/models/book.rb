@@ -4,7 +4,7 @@ class Book < ApplicationRecord
 
     has_one_attached :image
 
-    belongs_to :users  , optional: true
+    belongs_to :users, optional: true
     #optional: trueはnilを許容するバリデーション
     has_many :impressions
 
