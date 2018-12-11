@@ -30,11 +30,11 @@
     <div class="card-under">
       <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
       <%  #メモ
-            # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
-            # パラメータを渡してなにか処理をする、といった場合はformを使う
-            #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
-            %>
-      <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart">favorite</span>
+        # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+        # パラメータを渡してなにか処理をする、といった場合はformを使う
+        #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+        %>
+      <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
       <%= impressions.likes.count %>
       <% else %>
       <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
@@ -76,6 +76,7 @@
             url: '/likes/' + impressionId + '/destroy',
             type: 'POST',
             data: {
+              '_method': 'delete',
               'impression_id': impressionId,
             }
           }).done((data) => {
@@ -108,7 +109,7 @@
 
             // data-likedの値を更新する
             self.data("liked") = true;
-            
+
             console.log("success");
           })
           .fail((data) => {

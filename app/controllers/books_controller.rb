@@ -117,7 +117,6 @@ class BooksController < ApplicationController
       @impression = Impression.find(params[:id])
       @impression.destroy
       @book.destroy
-      flash[:notice] = "投稿を削除しました"
       redirect_to "/index"
     end
 

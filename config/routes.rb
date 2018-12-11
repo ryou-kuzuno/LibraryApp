@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # メモ：controller名 + action + （必要に応じてid） という形式がrails標準
   # こうすることでbundle exec rails routes を打ったときに、prefixとして、likes_create という名前ができる
   post   "likes/create"  => "likes#create"
-  post   "likes/:book_id/destroy" => "likes#destroy"
+  delete   "likes/:impression_id/destroy" => "likes#destroy"
 
   get    "search/"  =>  "books#search_page" #検索結果を表示する画面。
   get    "not_found" => 'books#not_found'
