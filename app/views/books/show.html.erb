@@ -29,18 +29,20 @@
 
     <div class="card-under">
       <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
-      <%  #メモ
-        # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
-        # パラメータを渡してなにか処理をする、といった場合はformを使う
-        #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
-        %>
-      <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
-      <%= impressions.likes.count %>
+        <%  #メモ
+          # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+          # パラメータを渡してなにか処理をする、といった場合はformを使う
+          #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+          %>
+        <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
+        <span><%= impressions.likes.count %></span>
       <% else %>
-      <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
-      <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
-      <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
-      <%= impressions.likes.count %>
+        <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+        <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
+        <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
+        
+        <span><%= impressions.likes.count %></span>
+
       <% end %>
     </div>
   </div>
@@ -69,7 +71,8 @@
       // @current_user.idなどをJavaScriptには直接記述できない
       // そのため、カスタムdata属性を使って、予めHTMLに埋め込んでおき、JavaScript実行時にその値を取り出して利用する
       var self = $(this); // JavaScript（jQuery）では、thisのスコープが呼び出す部分で変わるのでselfという変数に退避しておくことがよくある。
-      var hasMyLike = self.data("liked");
+      var hasMyLike = self[0].dataset.liked;
+      // self.data("liked") = true;
       var impressionId = self.data("impression-id");
       if (hasMyLike === true) {
         $.ajax({
@@ -91,7 +94,7 @@
       } else {
         $.ajax({
             // likes_create_path
-            url: '/likes/' + impressionId + '/create',
+            url: '/likes/' + impressionId + '/add',
             type: 'POST',
             dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
             timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
@@ -102,13 +105,18 @@
             }
           }).done((data) => {
             // doneの場合（処理が成功した場合）は、dataに’リクエスト形式のデータが入る（json）
-            console.log(data);
-
+            console.log(data.count);
             // +1をjQueryを使って行う
             // @todo
-
+            var currentCountText = self.next()[0].innerText;
+            console.log(currentCountText);
+            var currentCount = parseInt(currentCountText);
+            console.log(currentCount);
+            self.next()[0].innerText = (data.count).toString();
             // data-likedの値を更新する
-            self.data("liked") = true;
+            // self.data("liked") = true;
+            // self.data("liked", true)
+            self[0].dataset.liked = true;
 
             console.log("success");
           })

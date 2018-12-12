@@ -23,21 +23,6 @@ class BooksController < ApplicationController
       #      + like4
       #      + like5
       @impressions = @book.impressions
-      @likes_count = Like.where(
-        # user_id: @current_user.id,
-        book_id: params[:book_id]
-        ).count
-      # likeできるかどうかの判定
-      @can_like = false
-      @impressions.each do |impression|
-        can_like = Like.find_by(
-          user_id: @current_user.id,
-          impression_id: impression.id
-        )
-        if can_like == 0
-          @can_like = true # ある感想に紐づくLikeがなければ、Likeを追加できる
-          break
-        end
       end
       @new_comment = Comment.new
       # Comment.where ◯◯という条件でcommentsテーブルを検索する
