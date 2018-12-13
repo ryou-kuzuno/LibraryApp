@@ -23,7 +23,6 @@ class BooksController < ApplicationController
       #      + like4
       #      + like5
       @impressions = @book.impressions
-      end
       @new_comment = Comment.new
       # Comment.where ◯◯という条件でcommentsテーブルを検索する
       # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い

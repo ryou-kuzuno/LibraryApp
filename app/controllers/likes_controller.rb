@@ -10,7 +10,6 @@ class LikesController < ApplicationController
 
       render :json => {:impression_id => @like}
       @like.save
-        
     end
 
     def destroy
@@ -24,23 +23,27 @@ class LikesController < ApplicationController
       # 参考
       # ステータスコード
       # https://gist.github.com/mlanett/a31c340b132ddefa9cca
+      # 開発モードの場合、log/development.log にログがでます
+      logger.debug "#{params.inspect}"
+      like = Like.new
+      like.user_id = params[:user_id]
+      like.book_id = params[:book_id]
+      like.impression_id = params[:impression_id]
+        # @todo count処理は↑↑↑を参考に自分で記述してみてください
 
-      impression_id = params[:impression_id]
-
+      # logger.debug "#{like.inspect}"
       # @todo Likeのcreate処理を記述する
       # @todo createが 保存に成功したら、保存に失敗したらで、分岐して処理する
-      # can_like = Like.find_by(
-      #   user_id: @current_user.id,
-      #   impression_id: impression.id
-      # ).count
-      # 成功したら
-      success_json_object = {
-        'count'=>1
-      }
-      render :status => :ok, :json => success_json_object
 
-      # 失敗したら
-      # failer_json_object = {'status' => 'failer'}
-      # render :status => :internal_server_error, :json => failer_json_object
+      if like.save
+        success_json_object = {
+          'count'=> like
+        }
+        render :status => :ok, :json => success_json_object
+
+      else
+        failer_json_object = {'status' => 'failer'}
+        render :status => :internal_server_error, :json => failer_json_object
+      end
     end
 end

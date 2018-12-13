@@ -40,7 +40,6 @@
         <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
         <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
         <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
-        
         <span><%= impressions.likes.count %></span>
 
       <% end %>
@@ -81,6 +80,7 @@
             data: {
               '_method': 'delete',
               'impression_id': impressionId,
+              'user_id' : userId,
             }
           }).done((data) => {
             console.log("success");
@@ -99,9 +99,9 @@
             dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
             timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
             data: {
-              'user_id': userId,
-              'impression_id': impressionId,
-              'book_id': bookId,
+              user_id : userId,
+              impression_id : impressionId,
+              book_id : bookId,
             }
           }).done((data) => {
             // doneの場合（処理が成功した場合）は、dataに’リクエスト形式のデータが入る（json）
@@ -117,7 +117,7 @@
             // self.data("liked") = true;
             // self.data("liked", true)
             self[0].dataset.liked = true;
-
+            console.dir(value);
             console.log("success");
           })
           .fail((data) => {
@@ -142,7 +142,7 @@
 # - jsファイルの読み込み
 # - jsファイルの書き方
 # などを一緒に学習しましょう
-# 
+#
 %>
 <script>
   // Like処理のsubmitをjavascriptで発火させる
