@@ -25,19 +25,22 @@ class LikesController < ApplicationController
       # https://gist.github.com/mlanett/a31c340b132ddefa9cca
       # 開発モードの場合、log/development.log にログがでます
       logger.debug "#{params.inspect}"
-      like = Like.new
-      like.user_id = params[:user_id]
-      like.book_id = params[:book_id]
-      like.impression_id = params[:impression_id]
-        # @todo count処理は↑↑↑を参考に自分で記述してみてください
 
-      # logger.debug "#{like.inspect}"
-      # @todo Likeのcreate処理を記述する
-      # @todo createが 保存に成功したら、保存に失敗したらで、分岐して処理する
+      user_id = params[:user_id].to_i
+      book_id = params[:book_id].to_i
+      impression_id = params[:impression_id].to_i
+      like = Like.new
+      like.user_id = user_id
+      like.book_id = book_id
+      like.impression_id = impression_id
 
       if like.save
+        # likeの保存ができたら数を更新する
+        current_like_count = Like.where(book_id: book_id, impression_id: impression_id).size
+        logger.debug(current_like_count)
+  
         success_json_object = {
-          'count'=> like
+          'count' => current_like_count,
         }
         render :status => :ok, :json => success_json_object
 
