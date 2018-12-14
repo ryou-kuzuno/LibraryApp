@@ -34,6 +34,7 @@
           # パラメータを渡してなにか処理をする、といった場合はformを使う
           #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
           %>
+          <%# liked,impression-idはテーブルのカラムに依存している？それとも自由？ %>
         <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
         <span><%= impressions.likes.count %></span>
       <% else %>
@@ -71,7 +72,6 @@
       // そのため、カスタムdata属性を使って、予めHTMLに埋め込んでおき、JavaScript実行時にその値を取り出して利用する
       var self = $(this); // JavaScript（jQuery）では、thisのスコープが呼び出す部分で変わるのでselfという変数に退避しておくことがよくある。
       var hasMyLike = self[0].dataset.liked;
-      // self.data("liked") = true;
       var impressionId = self.data("impression-id");
       if (hasMyLike === true) {
         $.ajax({
@@ -93,18 +93,19 @@
           });
       } else {
         $.ajax({
-            // likes_create_path
+            // likes_create_pathでもいけるはず？
             url: '/likes/' + impressionId + '/add',
             type: 'POST',
             dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
             timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
             data: {
+              // ''で囲む意味
               user_id : userId,
               impression_id : impressionId,
               book_id : bookId,
             }
           }).done((data) => {
-            // doneの場合（処理が成功した場合）は、dataに’リクエスト形式のデータが入る（json）
+            // doneの場合（処理が成功した場合）は、dataに''リクエスト形式のデータが入る（json）
             console.log(data.count);
             // +1をjQueryを使って行う
             // @todo

@@ -1,0 +1,35 @@
+.write {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+}
+.write-new{
+    position: absolute;
+    top: 20%;
+    left: 34%;
+    background-color: #e6ecf0;
+    padding: 20px 0 40px;
+    border-radius: 10px;
+    width: 550px;
+    height: auto;
+    text-align: center;
+    .close-modal{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #668ad8;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .close-modal:active {/*ボタンを押したとき*/
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+    }
+}

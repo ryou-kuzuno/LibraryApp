@@ -33,9 +33,9 @@ class LikesController < ApplicationController
       like.user_id = user_id
       like.book_id = book_id
       like.impression_id = impression_id
-
+      # +1をセーブしてLikeテーブルの情報を更新する
       if like.save
-        # likeの保存ができたら数を更新する
+        # likeの保存ができたら一番新しい情報をテーブルから取ってくる
         current_like_count = Like.where(book_id: book_id, impression_id: impression_id).size
         logger.debug(current_like_count)
   

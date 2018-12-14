@@ -1,43 +1,34 @@
 <%# 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたいが、フォームを分けることは、コントローラーで紐づいているため
 　　できないので、if で分けるが、 %>
 
-<div class="close-modal">
-  <p>とじます</p>
-</div>
+
 <% if @erorr_message %>
-<%=  @erorr_message %>
+  <%=  @erorr_message %>
 <% end %>
+
 <% book = Book.new %>
 <%# fields_for　は複数モデルを使うときに使う %>
 <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
-<div class="write-card">
+<div class="write-new">
+    <div class="close-modal">とじます</div>
+
   <%= form_for book, url: { controller: :books, action: :create}  do |form| %>
-  <div class="card">
+  <div class="new-card">
     <div class="card-image">
       <%= form.label :好きな画像を選んでね %><br>
       <%= form.file_field :image %>
     </div>
     <div class="card-right">
-      <div class="author">
-        <%= form.label :作者名 %>
-        <%= form.text_field :author %>
-      </div>
-      <div class="title">
-        <%= form.label :タイトル %>
-        <%= form.text_field :title %>
-      </div>
+        <%= form.text_field :author , html: {class: 'author'} , :placeholder => "作者の名前" %>
+
+        <%= form.text_field :title , html: {class: 'title'} ,:placeholder => "本のタイトル" %>
     </div>
     <div class="card-text">
       <%=  form.fields_for book.impressions.build do |field| %>
       <%= field.hidden_field :user_id ,:value =>  @current_user %>
-      <div class="story">
-        <%= field.label :あらすじ %>
-        <%= field.text_area :story %>
-      </div>
-      <div class="impressions">
-        <%= field.label :感想 %>
-        <%= field.text_area :impressions %>
-      </div>
+        <%= field.text_area :story  , html: {class: 'story'} ,:placeholder => "あらすじ"%>
+
+        <%= field.text_area :impressions  , html: {class: 'impressions'} ,:placeholder => "本の感想"%>
     </div>
     <div class="card-under">
       <button type="button" onclick="submit();">送信</button>
