@@ -13,10 +13,32 @@ class LikesController < ApplicationController
     end
 
     def destroy
-      @like = Like.find_by(
-        user_id: @current_user.id, 
+      logger.debug "#{params.inspect}"
+      
+      impression_id = params[:impression_id].to_i
+      user_id = params[:user_id].to_i
+      book_id = params[:book_id].to_i
+      
+
+
+      like = Like.find_by(
+        impression_id: impression_id,
+        user_id: user_id,
+        book_id: book_id
       )
-      @like.destroy
+      logger.debug "#{like.inspect}"
+      logger.debug "-----------------------------------"
+      if like
+        if like.destroy
+          current_like_count = Like.where(book_id: book_id, impression_id: impression_id).size
+          logger.debug "#{current_like_count.inspect}"
+          success_json_object = {
+            'count' => current_like_count,
+          }
+          render :status => :ok, :json => success_json_object
+
+        end
+      end
     end
 
     def add

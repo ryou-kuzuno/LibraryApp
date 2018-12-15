@@ -2,35 +2,32 @@
 <% @books.zip(@impressions).each do |book , impression| %>
   <div class="card-poket">
     <div class="card">
-        <%# 備忘録。画像も表示させたいという忘れないように。%>
-        <% if book.image.attached? %>
-          <div class="card-image">
-            <%= image_tag book.image %>
-          </div>
-        <% end %> 
-
-        <div class="card-right">
-          <div class="title">
-          <p>タイトル</p>
-          <%# 変数bookのtitleメソッドを取り出す%>
-            <h1 class="book-title"><%= book.title %></h1>
-          </div>
-          <div class="author">
-            <p>作者</p>
-            <%# controllerでテーブルから情報を受け取った@booksの変数bookからauthorを出力%>
-            <h1><%= book.author %></h1>
-          </div>
+        <div class="card-top">
+          <% if book.image.attached? %>
+            <div class="card-image">
+              <%= image_tag book.image %>
+            </div>
+          <% end %>
+            <div class="book-info">
+              <div class="title">
+              <p>タイトル</p>
+                <h1><%= book.title %></h1>
+              </div>
+              <div class="author">
+                <p>作者</p>
+                <h1><%= book.author %></h1>
+              </div>
+            </div>
         </div>
+
       <div class="card-text">
         <p>題名</p>
         <div class="story">
-        <%# controllerでテーブルから情報を受け取った@impressionsから %>
           <%= impression.story %>
         </div>
       </div>
       <div class="card-under">
         <div>
-        <%# Impressionテーブルのidを使って詳細画面へのリンクを作る　%>
           <%= link_to "詳細", "/show/#{impression.id}" %>
         </div>
       </div>

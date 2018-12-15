@@ -42,7 +42,6 @@
         <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
         <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
         <span><%= impressions.likes.count %></span>
-
       <% end %>
     </div>
   </div>
@@ -73,7 +72,7 @@
       var self = $(this); // JavaScript（jQuery）では、thisのスコープが呼び出す部分で変わるのでselfという変数に退避しておくことがよくある。
       var hasMyLike = self[0].dataset.liked;
       var impressionId = self.data("impression-id");
-      if (hasMyLike === true) {
+      if (hasMyLike === "true") {
         $.ajax({
             url: '/likes/' + impressionId + '/destroy',
             type: 'POST',
@@ -81,8 +80,16 @@
               '_method': 'delete',
               'impression_id': impressionId,
               'user_id' : userId,
+              'book_id' : bookId,
             }
           }).done((data) => {
+            var currentCountText = self.next()[0].innerText;
+            console.log(currentCountText);
+            var currentCount = parseInt(currentCountText);
+            console.log(currentCount);
+            self.next()[0].innerText = (data.count).toString();
+
+            self[0].dataset.liked = false;
             console.log("success");
           })
           .fail((data) => {
@@ -105,7 +112,7 @@
               book_id : bookId,
             }
           }).done((data) => {
-            // doneの場合（処理が成功した場合）は、dataに''リクエスト形式のデータが入る（json）
+            // doneの場合（処理が成功した場合）は、dataに''リクエスト形式のデータが入る（json）ここでcountしているからcontrlloerでのカウント必要ないと思った
             console.log(data.count);
             // +1をjQueryを使って行う
             // @todo

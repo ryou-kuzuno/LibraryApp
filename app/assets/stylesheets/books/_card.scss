@@ -11,30 +11,30 @@
     margin: 10px;
     font-weight: bold;
     background-color: white;
-    .card-image {
-        img  {
-            display: inline-block;
-            width: 100px;
-            margin: 0px;
-            padding: 0px;
+    .card-top {
+        display: inline-block;
+        .card-image {
+            img  {
+                display: inline-block;
+                width: 100px;
+                margin: 0px;
+                padding: 0px;
+            }
         }
-    }
-    .card-right {
-
-        .title {
-            color: red;
-            padding: 15px;
-            margin: 15px;
-            font-size: 25px;
-        }
-        .author {
-            color: blue;
-            padding: 15px;
-            margin: 15px;
-            font-size: 25px;
-        }
-        p {
-            font-size: 30px;
+        .book-info {
+            .title {
+                color: red;
+                padding: 15px;
+                font-size: 25px;
+            }
+            .author {
+                color: blue;
+                padding: 15px;
+                font-size: 25px;
+            }
+            p {
+                font-size: 30px;
+            }
         }
     }
 
