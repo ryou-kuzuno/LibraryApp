@@ -3,9 +3,11 @@ class BooksController < ApplicationController
 
     #感想一覧を表示するアクション
     def index
-      @books =Book.all
       @test = Book.all.last(2)
-      @impressions = Impression.all
+      @books = Book.all.order(created_at: :desc)
+      @books = Book.page(params[:page]).per(10).order('created_at DESC')
+      @impressions = Impression.all.order(created_at: :desc)
+      @impressions = Impression.page(params[:page]).per(10).order('created_at DESC')
     end
 
     #本の詳細画面でのアクション

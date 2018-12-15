@@ -16,4 +16,6 @@
 <% end%>
 
 <p>新着一覧</p>
+<%= paginate @books %>
 <%= render partial: 'books/cards/cards' %>
+<%= paginate @books %>
