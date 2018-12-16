@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :user_logged_in, only: [:index, :show, :create, :edit]
+  before_action :user_logged_in, only: [:show , :reply,  :create, :edit]
+
 
     #感想一覧を表示するアクション
     def index

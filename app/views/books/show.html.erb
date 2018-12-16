@@ -2,7 +2,9 @@
 <% # この部分は、唯一の要素としたいので、idで要素を指定している %>
 <div class="card-show" id="js-card-show" data-user-id="<%= @current_user.id %>" data-book-id="<%= @book.id %>">
   <div class="card-image">
-    <%= image_tag @book.image %>
+    <% if @book.image.attached?  %>
+      <%= image_tag @book.image  %>
+    <% end %>
   </div>
   <div class="card-right">
     <p>作者</p>
@@ -28,21 +30,21 @@
     </p>
 
     <div class="card-under">
-      <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
-        <%  #メモ
-          # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
-          # パラメータを渡してなにか処理をする、といった場合はformを使う
-          #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
-          %>
-          <%# liked,impression-idはテーブルのカラムに依存している？それとも自由？ %>
-        <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
-        <span><%= impressions.likes.count %></span>
-      <% else %>
-        <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
-        <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
-        <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
-        <span><%= impressions.likes.count %></span>
-      <% end %>
+        <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+          <%  #メモ
+            # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+            # パラメータを渡してなにか処理をする、といった場合はformを使う
+            #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+            %>
+            <%# liked,impression-idはテーブルのカラムに依存している？それとも自由？ %>
+          <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
+          <span><%= impressions.likes.count %></span>
+        <% else %>
+          <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+          <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
+          <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
+          <span><%= impressions.likes.count %></span>
+        <% end %>
     </div>
   </div>
 

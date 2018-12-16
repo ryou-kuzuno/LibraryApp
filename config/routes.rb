@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get    "users/:id/likes"     => "users#likes"#お気に入り画面
   get    "users/:id"    => "users#show"#ユーザーの詳細画面
   post   "users/create" => "users#create"#ユーザー作成
-  get    "signup"        => "users#new"#ユーザー登録画面
+
+  get    "signup"        => "users#new"#ユーザー新規登録
   post   "login"        => "users#login"#ログインする
   get   "logout"       => "users#logout"#ログアウトする
   get    "/"         => "users#login_form"#ログイン画面

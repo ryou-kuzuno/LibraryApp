@@ -6,9 +6,10 @@ class ApplicationController < ActionController::Base
       @current_user = User.find_by(id: session[:user_id])
     end
 
+    # ログインしていない人間を強制でログインフォームに飛ばす。
     def user_logged_in
       if @current_user.nil?
-        redirect_to :root
+        redirect_to "/"
       end
     end
 

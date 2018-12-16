@@ -4,3 +4,24 @@
 @mixin box {
     box-shadow: 0 0 1px white;
 }
+
+.comment-form {
+    background-color: white;
+    .comment{
+      width: 100%;
+    }
+
+    .btn-form{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #668ad8;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 5px;
+        :active {/*ボタンを押したとき*/
+            transform: translateY(4px);/*下に動く*/
+            border-bottom: none;/*線を消す*/
+        }
+    }
+}

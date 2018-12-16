@@ -50,3 +50,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'kaminari', '~> 0.17.0'
+gem 'rails-i18n', '~> 5.1' 

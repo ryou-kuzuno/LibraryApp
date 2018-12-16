@@ -7,9 +7,10 @@
       </div>
     <% end %>
     <%= form_for @user, url: { 'controller' => 'users', 'action' => 'login'} do |form| %>
+      <div class="login-form">
         <%= form.email_field :mail , :autocomplete =>"on" ,:placeholder => "メール" %>
         <%= form.password_field :password , :autocomplete =>"on" ,:placeholder => "パスワード " %>
-      <div>
+      <div class="btn-form">
         <%= form.submit 'ログイン' %>
       </div>
     <% end %>
