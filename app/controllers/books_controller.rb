@@ -36,11 +36,7 @@ class BooksController < ApplicationController
       )
     end
 
-    #新しく感想を投稿する画面のアクション
-    def new
-      @book = Book.new
-      @impression = Impression.new
-    end
+    #新しく感想を投稿する画面のアクションはheaderからrenderの_new.html.erb
 
     #感想の編集画面のアクション
     def edit
@@ -53,18 +49,18 @@ class BooksController < ApplicationController
     def create
       # book_idを確定させるために先に@book.saveをしておく必要がある。
       # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
-      @book = Book.new(title: params["book"]["title"],
-        author: params["book"]["author"],
-        image: params["book"]["image"],
+      @book = Book.new(title: params["title"],
+        author: params["author"],
+        image: params["image"],
         user_id: @current_user.id
       )
-      @book.image.attach(params[:book][:image])
+      @book.image.attach(params[:image])
 
       # book.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
       # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
       impression = @book.impressions.build(
-        story: params["book"]["impression"]["story"],
-        impressions: params["book"]["impression"]["impressions"],
+        story: params["impression"]["story"],
+        impressions: params["impression"]["impressions"],
         user_id: @current_user.id,
         book_id: @book.id
       )
@@ -91,8 +87,11 @@ class BooksController < ApplicationController
     #投稿に対するコメントを作成するアクション
     def reply
       # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする
-      comment_params = params["comment"].permit(:book_id, :comment, :user_id)
-      @new_comment = Comment.new(comment_params)
+      @new_comment = Comment.find_by(
+        book_id: params[`:book_id`],
+        comment: params[`:comment`],
+        user_id: params[`:user_id`]
+        )
       if @new_comment.save
         redirect_to controller: 'books', action: 'show'
       end

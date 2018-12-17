@@ -1,13 +1,17 @@
 # LibraryApp
 
-## install
+## rails s までの手順
+自分の中でのまとめと、他の方が書かれていた記事を自分向けにまとめる
 
-新規の手順（仮
+前提条件?
+'rails', '~> 5.2.2'
+ruby '2.5.1'
+'mysql2', '>= 0.4.4', '< 0.6.0'
 
-まずはじめに作業フォルダを作ります。エクスプローラーから作っても構わないです。
+まずはじめに作業フォルダを作ります。初めのうちはエクスプローラーから作ってました。
 $ mkdir 作業ディレクトリ名
 例　C:\Users\kuzuno> mkdir TestApp
-TestApp　先頭を大文字にしたのは後で見やすいように。 
+TestApp　先頭を大文字にしたのは後で見やすいように。
 
 作り終わったら
 $ cd  さっき作ったフォルダ
@@ -61,6 +65,7 @@ Install missing gem executables with `bundle install`
 
 database.yml　で　rootpassを設定する
 そのあとデータベースを作成する。これが必要１
+database.ymlの内容でデータベースを作成
 $ bundle exec rake db:create
 
 # テーブル作成
@@ -72,6 +77,7 @@ $ bundle exec rails g model User uuid:string:unique name:string
 model とmaigraateファイル作成完了
 
 モデルの変更を確定。モデル作成していなくてもする２
+db/migrateディレクトリの中にあるスクリプトファイルに基づいてデータベースにテーブルを作成します．
 bundle exec rails db:migrate
 
 あとからの変更について　ここから

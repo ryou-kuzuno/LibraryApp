@@ -1,18 +1,13 @@
 <%# 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたいが、フォームを分けることは、コントローラーで紐づいているため
 　　できないので、if で分けるが、 %>
 
-
-<% if @erorr_message %>
-  <%=  @erorr_message %>
-<% end %>
-
 <% book = Book.new %>
 <%# fields_for　は複数モデルを使うときに使う %>
 <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
 <div class="write-new">
     <div class="close-modal">とじます</div>
 
-  <%= form_for book, url: { controller: :books, action: :create}  do |form| %>
+  <%= form_with(url:'/books/create', controller: :books, action: :create ,local: true, method: :post)   do |form| %>
   <div class="new-card">
     <div class="card-image">
       <%= form.label :好きな画像を選んでね %><br>

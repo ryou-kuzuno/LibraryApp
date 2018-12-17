@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # post   "likes/:impression_id/add" => "likes#add"
   post   "likes/:impression_id/add" => "likes#add"
 
-  get    ':book_id/create'  => "comments#create"#投稿にコメントする
+  get    ':book_id/create'  => "comments#create"#投稿にコメントするmouirann
   delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
   post   ":id/destroy"=> "books#destroy"#投稿を削除する
 
