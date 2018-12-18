@@ -6,7 +6,7 @@
 <% end %>
 
 <div class="comment-form">
-  <%= form_with model: Comment.new, url: '/comments/create' do |form| %>
+  <%= form_with model: Comment.new, url: '/comments/create', locale: true do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>
