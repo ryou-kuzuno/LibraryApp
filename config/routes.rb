@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   # post   "likes/:impression_id/add" => "likes#add"
   post   "likes/:impression_id/add" => "likes#add"
 
-  get    ':book_id/create'  => "comments#create"#投稿にコメントするmouirann
+  post "comments/create" => "comments#create"
+
   delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
   post   ":id/destroy"=> "books#destroy"#投稿を削除する
 
   # form_forがうまく表示されなかったのはbook_idになっていなかったから
   post   "show/:book_id/comment" => "books#reply"
+
 
   # メモ：controller名 + action + （必要に応じてid） という形式がrails標準
   # こうすることでbundle exec rails routes を打ったときに、prefixとして、likes_create という名前ができる

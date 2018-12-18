@@ -6,7 +6,7 @@
 <% end %>
 
 <div class="comment-form">
-  <%= form_with(url:'/show/book_id/comment' , controller: :books, action: :reply , local: true, method: :post)  do |form| %>
+  <%= form_with model: Comment.new, url: '/comments/create' do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>

@@ -84,13 +84,13 @@ class BooksController < ApplicationController
       end
     end
 
-    #投稿に対するコメントを作成するアクション
+    # 投稿に対するコメントを作成するアクション
     def reply
       # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする
-      @new_comment = Comment.find_by(
-        book_id: params[`:book_id`],
-        comment: params[`:comment`],
-        user_id: params[`:user_id`]
+      @new_comment = Comment.new(
+        book_id: params[:book_id],
+        comment: params[:comment],
+        user_id: params[:user_id]
         )
       if @new_comment.save
         redirect_to controller: 'books', action: 'show'
