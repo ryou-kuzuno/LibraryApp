@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   # railsの規約に合わせると model + actionの形にroutingもしておくのがベター
   post   "books/create"        => "books#create"#本を作るアクション
 
+  patch   "impression/update" => "impressions#update"
   patch   "books/:book_id/update" => "books#update"#変更を反映
   get    ":book_id/edit"    => "books#edit"#編集画面 # /:book_id/:impression_id/edit
 

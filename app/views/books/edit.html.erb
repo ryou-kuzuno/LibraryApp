@@ -1,17 +1,18 @@
-<%= form_for @impression ,url: {controller: :books, action: :update} do |imp|%>
+<%= form_with model: @impression, url: "/impression/update", locale: true do |form|%>
   <div class="card">
     <div class="card-text">
+      <%= form.hidden_field :book_id %>
       <div class="story">
-        <%= imp.label :あらすじ %>
-        <%= imp.text_area :story  %>
+        <%= form.label :あらすじ %>
+        <%= form.text_area :story  %>
       </div>
       <div class="impressions">
-        <%= imp.label :感想 %>
-        <%= imp.text_area :impressions%>
+        <%= form.label :感想 %>
+        <%= form.text_area :impressions %>
       </div>
     </div>
       <div class="save_form">
-        <%= imp.submit '保存' %>
+        <%= form.submit '保存' %>
       </div>
 <% end %>
       <%= link_to "削除", "/#{@impression.book_id}/destroy", {method: "post"} %>

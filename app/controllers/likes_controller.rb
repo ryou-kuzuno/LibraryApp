@@ -14,12 +14,10 @@ class LikesController < ApplicationController
 
     def destroy
       logger.debug "#{params.inspect}"
-      
+
       impression_id = params[:impression_id].to_i
       user_id = params[:user_id].to_i
       book_id = params[:book_id].to_i
-      
-
 
       like = Like.find_by(
         impression_id: impression_id,
@@ -60,7 +58,6 @@ class LikesController < ApplicationController
         # likeの保存ができたら一番新しい情報をテーブルから取ってくる
         current_like_count = Like.where(book_id: book_id, impression_id: impression_id).size
         logger.debug(current_like_count)
-  
         success_json_object = {
           'count' => current_like_count,
         }
