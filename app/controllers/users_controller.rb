@@ -16,16 +16,16 @@ class UsersController < ApplicationController
     # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
     #form_forでの取り出し方
     @user = User.new(
-      nicename: params["user"]["nicename"],
-      mail: params["user"]["mail"],
-      password: params["user"]["password"]
+      nicename: params["nicename"],
+      mail: params["mail"],
+      password: params["password"]
     )
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to "/index"
     else
-      render("signup")
+      render "signup"
     end
   end
 
@@ -51,8 +51,8 @@ class UsersController < ApplicationController
 
   def login
     @user = User.find_by(
-      mail: params["user"]["mail"],
-      password: params["user"]["password"]
+      mail: params["mail"],
+      password: params["password"]
     )
     if @user
       session[:user_id] = @user.id
@@ -61,9 +61,9 @@ class UsersController < ApplicationController
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @user = User.new
-      @user.mail = params["user"]["mail"]
-      @user.password = params["user"]["password"]
-      render "users/login_form"
+      @user.mail = params["mail"]
+      @user.password = params["password"]
+      render "/"
     end
   end
 

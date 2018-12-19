@@ -85,6 +85,7 @@
               'book_id' : bookId,
             }
           }).done((data) => {
+            $(this).removeClass('hart');
             var currentCountText = self.next()[0].innerText;
             console.log(currentCountText);
             var currentCount = parseInt(currentCountText);
@@ -114,6 +115,7 @@
               book_id : bookId,
             }
           }).done((data) => {
+            $(this).addClass('hart');
             // doneの場合（処理が成功した場合）は、dataに''リクエスト形式のデータが入る（json）ここでcountしているからcontrlloerでのカウント必要ないと思った
             console.log(data.count);
             // +1をjQueryを使って行う

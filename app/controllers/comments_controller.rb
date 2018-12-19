@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_current_user
   # book.controller.rbにある。
-
+  # newとsaveの自動推測
   def create
     @new_comment = Comment.create params.require(:comment).permit(:book_id, :comment, :user_id)
 

@@ -3,6 +3,10 @@
 
 <% @comments.each do |comment| %>
   <p><%= comment.comment %></p>
+  <% if @current_user %>
+    <div class="comment-del"><%= link_to "コメントを削除する", "/book_id/destroy" %></div>
+  <% end %>
+  <p>-----------</p>
 <% end %>
 
 <div class="comment-form">
