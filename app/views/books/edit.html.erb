@@ -1,4 +1,4 @@
-<%= form_with model: @impression, url: "/impression/update", locale: true do |form|%>
+<%= form_with model: @impression, url: "/impression/update", local: true do |form|%>
   <div class="card">
     <div class="card-text">
       <%= form.hidden_field :book_id %>
@@ -11,10 +11,11 @@
         <%= form.text_area :impressions %>
       </div>
     </div>
-      <div class="save_form">
-        <%= form.submit '保存' %>
-      </div>
+  </div>
+  <div class="save_form">
+    <%= form.submit '保存' %>
+  </div>
 <% end %>
-      <%= link_to "削除", "/#{@impression.book_id}/destroy", {method: "post"} %>
-     <%= link_to "戻る", "/show/#{@impression.book_id}.id"%>
-    </div>
+
+<%= link_to "削除", "/#{@impression.book_id}/destroy", {method: "post"} %>
+<%= link_to "戻る", "/show/#{@impression.book_id}.id"%>
