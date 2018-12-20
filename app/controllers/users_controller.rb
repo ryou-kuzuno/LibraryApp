@@ -34,10 +34,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(id: @current_user.id)
-    @user.mail =  params[:user][:mail]
-    @user.nicename =  params[:user][:nicename]
-    if @user.save
+    parameter = params.require(:user).permit(:nicename, :email)
+    @user = User.find_by(id: @current_user)
+    if @user.update_attributes(parameter)
       flash[:notice] = "ユーザー情報を編集しました"
       redirect_to "/users/#{@user.id}"
     else

@@ -7,7 +7,7 @@
 <div class="write-new">
     <div class="close-modal">とじます</div>
 
-  <%= form_with(url:'/books/create', controller: :books, action: :create ,local: true, method: :post)   do |form| %>
+  <%= form_with url:'/books/create', local: true, method: :post  do |form| %>
   <div class="new-card">
     <div class="card-image">
       <%= form.label :好きな画像を選んでね %><br>
