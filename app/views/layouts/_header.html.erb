@@ -9,10 +9,9 @@
         <li><%= link_to "自分の♡見るなら押す" ,"/users/#{@current_user.id}/likes" %></li>
         <li><%= link_to "#{@current_user.nicename}の本棚", "/users/#{@current_user.id}"%></li>
         <li class="search">
-          <%= form_with(url: '/search', controller: 'books', action: 'search', local: true, method: :get) do |form| %>
-            <%= form.label :search_key, 'タイトルしか検索できないが、押す' %>
+          <%= form_with(model: @book, url: '/search', local: true, method: :get) do |form| %>
             <%= form.text_field :search_key %>
-            <%= form.submit '検索', :title => nil %>
+            <%= form.submit '検索', :title => nil, :author => nil %>
           <% end%>
         </li>
       </ul>

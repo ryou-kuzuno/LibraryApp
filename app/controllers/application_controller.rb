@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
     end
 
     def search_page
-      #ViewのFormで取得したパラメータをモデルに渡す
-      @books = Book.search(params[:search])
+      #ViewのFormで取search得したパラメータをモデルに渡す
+      @books = Book.(params[:search])
     end
 
     private

@@ -118,7 +118,7 @@ class BooksController < ApplicationController
 
     def search_page
       search_key_word = params[:search_key]
-      @books = Book.where("title LIKE ?", "%#{search_key_word}%")
+      @books = Book.where("title LIKE ? OR author LIKE ?", "%#{search_key_word}%", "%#{search_key_word}%")
       if  @books.empty?
         @book_not_found_message = "キーワードに該当するページが見つかりません"
         render "search_page"

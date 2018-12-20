@@ -2,9 +2,9 @@
     <p>キーワードに該当するページが見つかりません</p>
 <% else %>
   <%# 検索結果の表示 %>
-  <%= params[:title] %>
   <% @books.each do |book| %>
-  <div >
+  <div class="title-author">
+    <%= book.title %>
     <%= book.author %>
   </div>
   <% end %>
