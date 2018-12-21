@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # post   "likes/:impression_id/add" => "likes#add"
-  post   "likes/:impression_id/add" => "likes#add"
+  post   "likes/:impression_id/create" => "likes#create"
 
   post "comments/create" => "comments#create"
 

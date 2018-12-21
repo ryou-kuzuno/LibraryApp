@@ -30,13 +30,12 @@
     </p>
 
     <div class="card-under">
-        <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+        <% if Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
           <%  #メモ
             # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
             # パラメータを渡してなにか処理をする、といった場合はformを使う
             #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
             %>
-            <%# liked,impression-idはテーブルのカラムに依存している？それとも自由？ %>
           <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
           <span><%= impressions.likes.count %></span>
         <% else %>
@@ -104,7 +103,7 @@
       } else {
         $.ajax({
             // likes_create_pathでもいけるはず？
-            url: '/likes/' + impressionId + '/add',
+            url: '/likes/' + impressionId + '/create',
             type: 'POST',
             dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
             timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
