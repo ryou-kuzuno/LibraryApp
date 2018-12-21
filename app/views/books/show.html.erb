@@ -67,7 +67,7 @@
     var userId = $("#js-card-show").data("user-id");
     var bookId = $("#js-card-show").data("book-id");
 
-    $('.material-icons').on('click', function () {
+    $('.material-icons').click(function () {
       // @current_user.idなどをJavaScriptには直接記述できない
       // そのため、カスタムdata属性を使って、予めHTMLに埋め込んでおき、JavaScript実行時にその値を取り出して利用する
       var self = $(this); // JavaScript（jQuery）では、thisのスコープが呼び出す部分で変わるのでselfという変数に退避しておくことがよくある。
