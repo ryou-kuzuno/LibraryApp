@@ -32,4 +32,23 @@
         transform: translateY(4px);/*下に動く*/
         border-bottom: none;/*線を消す*/
     }
+    .card-right {
+        .author {
+            width: 300px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+        .title {
+            width: 300px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+    }
+}
+.warning {
+    color: red;
 }
