@@ -1,16 +1,20 @@
 <% if @book_not_found_message %>
     <p>キーワードに該当するページが見つかりません</p>
+
+    <div id="btn">?</div>
 <% else %>
   <%# 検索結果の表示 %>
+  <div class="sanplu">
   <% @books.each do |book| %>
   <div class="title-author">
-    <%= book.title %>
-    <%= book.author %>
+      <%= book.title %>
+      <%= book.author %>
   </div>
   <% end %>
+  </div>
+  <button>検索結果なんて見ないさ</button>
 <% end %>
 
-<div id="btn">?</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
@@ -19,4 +23,13 @@
     var num = Math.floor(Math.random() * results.length);
     $(this).text(results[num]);
   });
+
+  $('button').on('click', function(){
+      $('.sanplu').toggle();
+    if ($('.sanplu').toggle()){
+      $('button').text("見るよ！");
+      $('.sanplu').toggle();
+    }
+  });
+
 </script>
