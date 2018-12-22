@@ -2,8 +2,7 @@
 
     <p>最近読まれた本</p>
 
-<% @test.each_with_index do |book , index|%>
-  <div class="recently">
+  <% @test.each_with_index do |book , index|%>
     <div class="image">
       <% if book.image.attached?  %>
         <%= image_tag book.image  %>
@@ -12,10 +11,33 @@
     <div class="title">
       <%= link_to book.title , "/show/#{book.id}" %>
     </div>
-  </div>
-<% end%>
+  <% end%>
 
 <p>新着一覧</p>
 <%= paginate @books %>
 <%= render partial: 'books/cards/cards' %>
 <%= paginate @books %>
+
+<div id="back-to-top" style="position:fixed;right:5px;bottom:5px"><a harf="#">↑</a></div>
+<div id="pos" style="position:fixed;left:5px;bottom:5px"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  $(function(){
+    $('#back-to-top').hide();
+    $(window).scroll(function(){
+      $('#pos').text($(this).scrollTop());
+      if ($(this).scrollTop() > 60) {
+        $('#back-to-top').fadeIn();
+      } else {
+        $('#back-to-top').fadeout();
+      }
+    });
+    $('#back-to-top a').click(function(){
+      $('html','body').animate({
+        scrollTop:0
+      }, 500);
+      return faluse;
+    });
+  });
+</script>

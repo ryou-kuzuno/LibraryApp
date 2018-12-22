@@ -3,7 +3,9 @@ class LikesController < ApplicationController
     protect_from_forgery except: :create
 
     def create
-      logger.debug "#{params.inspect}"
+      # ステータスコード
+      # https://gist.github.com/mlanett/a31c340b132ddefa9cca
+      # 開発モードの場合、log/development.log にログがでます
 
       user_id = params[:user_id].to_i
       book_id = params[:book_id].to_i
@@ -28,13 +30,6 @@ class LikesController < ApplicationController
       end
     end
 
-    # @like = Like.new(
-    #   user_id: @current_user.id, 
-    #   impression_id: params[:likes][:impression_id]
-    # )
-
-    # render :json => {:impression_id => @like}
-    # @like.save
     def destroy
       logger.debug "#{params.inspect}"
 
@@ -57,16 +52,10 @@ class LikesController < ApplicationController
             'count' => current_like_count,
           }
           render :status => :ok, :json => success_json_object
-
+        else
+          failer_json_object = {'status' => 'failer'}
+          render :status => :internal_server_error, :json => failer_json_object
         end
       end
     end
-
-    # def add
-      # 参考
-      # ステータスコード
-      # https://gist.github.com/mlanett/a31c340b132ddefa9cca
-      # 開発モードの場合、log/development.log にログがでます
-      
-    # end
 end
