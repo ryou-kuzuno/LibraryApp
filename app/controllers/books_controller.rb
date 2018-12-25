@@ -94,7 +94,7 @@ class BooksController < ApplicationController
     end
 
     def search
-      @books = Book.search(params[:search_key])
+      @books = Book.search(params[:search_key].split(/[[:blank:]]+/))
       if @books
         redirect_to "/search/#{params[:search_key]}"
       else
@@ -104,8 +104,16 @@ class BooksController < ApplicationController
     end
 
     def search_page
-      search_key_word = params[:search_key]
-      @books = Book.where("title LIKE ? OR author LIKE ?", "%#{search_key_word}%", "%#{search_key_word}%")
+      split_keyword = params[:search_key].split(/[[:blank:]]+/)
+      @books = []
+      split_keyword.each do |keyword|
+        next if keyword == ""
+        @books += Book.where("title LIKE ? OR author LIKE ?", "%#{keyword}%", "%#{keyword}%")
+      end
+      @books.uniq!
+
+      # search_key_word = params[:search_key]
+      # @books = Book.where("title LIKE ? OR author LIKE ?", "%#{search_key_word}%", "%#{search_key_word}%")
       if  @books.empty?
         @book_not_found_message = "キーワードに該当するページが見つかりません"
         render "search_page"

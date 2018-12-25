@@ -33,9 +33,9 @@
         <li><%= link_to "新規に登録するなら押す", "/signup" %></li>
         <li  class="search">
         <%# 本のタイトルのみで検索できます。 %>
-          <%= form_with(url: '/search', controller: 'books', action: 'search', local: true, method: :get) do |form| %>
+          <%= form_with(url: '/search', local: true, method: :get) do |form| %>
             <%= form.text_field :search_key %>
-            <%= form.submit 'タイトルしか検索できないが、押す', :title => nil %>
+            <%= form.submit 'タイトルしか検索できないが、押す' %>
           <% end%>
         </li>
       </ul>
