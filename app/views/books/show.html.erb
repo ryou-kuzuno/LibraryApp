@@ -77,6 +77,8 @@
         $.ajax({
             url: '/likes/' + impressionId + '/destroy',
             type: 'POST',
+            dataType: "json", /* 応答のデータの種類 (xml/html/script/json/jsonp/text) */
+            timespan: 1000, /* 通信のタイムアウトの設定(ミリ秒) */
             data: {
               '_method': 'delete',
               'impression_id': impressionId,
