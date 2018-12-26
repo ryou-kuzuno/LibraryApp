@@ -54,4 +54,5 @@ production:
   pool: 5
   database: LibraryApp_production
   username: LibraryApp
-  password: <%= ENV['LIBRARYAPP_DATABASE_PASSWORD'] %>
+  # password: <%= ENV['LIBRARYAPP_DATABASE_PASSWORD'] %>
+  password: root
