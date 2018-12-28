@@ -9,17 +9,49 @@
   <p>-----------</p>
 <% end %>
 
-<div class="comment-form">
+<div class="comment-form" >
   <%= form_with model: Comment.new, url: '/comments/create', locale: true do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>
-      <%= form.text_field :comment %>
-      <%= form.hidden_field :user_id ,:value => @current_user.id %>
-      <%= form.hidden_field :book_id ,:value => book_id %>
+      <%= form.text_field :comment ,:datacomment => params[:comment] %>
+      <%= form.hidden_field :user_id ,:datauserId => @current_user.id %>
+      <%= form.hidden_field :book_id ,:databookId => book_id %>
     </div>
     <div class="btn-form">
-      <button type="button" onclick="submit();">送信</button>
+      <button id="button" type="button" onclick="submit();">送信</button>
     </div>
   <% end%>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+ $(function () {
+   $('#button').click(function () {
+     var self = $(this);
+      var userId = self.data("userId");
+      var bookId = self.data("bookId");
+      var comment = self.data("comment");
+      $.ajax({
+        url: 'comments/create',
+        type: 'POST',
+        dataType: "json",
+        timespan: 1000,
+        data: {
+          'user_id' : userId,
+          'book_id' : bookId,
+          'comment' : comment,
+        }
+      }).done((data) => {
+        console.log(data.comment);
+        console.log("success");
+      })
+      .fail((data) => {
+        console.log("fail");
+      })
+      .always((data) => {
+        console.log("always");
+      });
+   });
+ });
+</script>
