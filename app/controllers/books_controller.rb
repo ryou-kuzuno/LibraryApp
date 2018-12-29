@@ -42,6 +42,7 @@ class BooksController < ApplicationController
     def edit
       # id で検索をかけると、impression_idでの検索となってしまう。
       # book_idでの検索なので、idをbook_idに変更
+      @book = Book.find(params[:book_id])
       @impression = Impression.find_by(book_id: params[:book_id])
     end
 

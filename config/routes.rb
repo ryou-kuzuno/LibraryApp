@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   patch  "users/:id/update" => "users#update"#ユーザーの変更を反映
   get    "users/:id/edit" => "users#edit" #ユーザー編集画面
-  get    "users/:id/likes"     => "users#likes"#お気に入り画面
+  # get    "users/:id/likes"     => "users#likes"#お気に入り画面
   get    "users/:id"    => "users#show"#ユーザーの詳細画面
   post   "users/create" => "users#create"#ユーザー作成
 
