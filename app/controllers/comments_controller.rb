@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   # book.controller.rbにある。
   # newとsaveの自動推測
   def create
+    # binding.pry
     book_id = params[:book_id].to_i
     comment = params[:comment]
     user_id = params[:user_id].to_i

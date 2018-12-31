@@ -19,7 +19,7 @@
       <%= form.hidden_field :book_id ,:databookId => book_id %>
     </div>
     <div class="btn-form">
-      <button id="button" type="button" onclick="submit();">送信</button>
+      <button id="button" type="button">送信</button>
     </div>
   <% end%>
 </div>
@@ -33,7 +33,7 @@
       var bookId = self.data("bookId");
       var comment = self.data("comment");
       $.ajax({
-        url: 'comments/create',
+        url: '/comments/create',
         type: 'POST',
         dataType: "json",
         timespan: 1000,
