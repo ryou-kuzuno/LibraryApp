@@ -2,7 +2,7 @@
 
     <p>最近読まれた本</p>
 
-  <% @test.each_with_index do |book , index|%>
+  <% @near_books.each_with_index do |book , index|%>
     <div class="image">
       <% if book.image.attached?  %>
         <%= image_tag book.image  %>

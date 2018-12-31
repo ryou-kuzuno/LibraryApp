@@ -1,14 +1,15 @@
 <%# コメントがされたらここに表示される。コメントが古いほうが上に出る %>
 <%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
-<% @comments = Comment.where(impression_id: params[:impression_id]) %>
-
-  <% @comments.each do |comment| %>
+<% comments = Comment.where(impression_id: params[:impression_id]) %>
+<ul>
+  <% comments.each do |comment| %>
     <p><%= comment.comment %></p>
     <% if comment.user_id %>
       <div class="comment-del"><%= link_to "コメントを削除する", "/book_id/destroy" %></div>
     <% end %>
     <p>-----------</p>
   <% end %>
+</ul>
 
 
 <div class="comment-form" >
@@ -18,7 +19,7 @@
       <%= form.label :コメント %>
       <%= form.text_field :comment %>
       <%= form.hidden_field :user_id, :value => @current_user.id %>
-      <%= form.hidden_field :book_id, :value => book_id %>
+      <%= form.hidden_field :impression_id, :value => impression_id %>
     </div>
     <div class="btn-form">
       <button id="button" type="button">送信</button>
@@ -32,7 +33,7 @@
    $('#button').click(function () {
       var self = $(this);
       var userId = $("#comment_user_id").val();
-      var bookId = $("#comment_book_id").val();
+      var impressionId = $("#comment_impression_id").val();
       var comment = $("#comment_comment").val();
       $.ajax({
         url: '/comments/create',
@@ -41,12 +42,12 @@
         timespan: 2000,
         data: {
           'user_id' : userId,
-          'book_id' : bookId,
+          'impression_id' : impressionId,
           'comment' : comment,
         }
       }).done((data) => {
-        var comments = self.data("comments");
-        comments += data.comment;
+        // var comments = self.data("comments");
+        $('ul').after(self.data("comments"));
         console.log(data.comment);
         console.log("success");
       })
@@ -57,5 +58,5 @@
         console.log("always");
       });
    });
- });
+  });
 </script>
