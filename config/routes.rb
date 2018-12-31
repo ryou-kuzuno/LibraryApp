@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   post "comments/create" => "comments#create"
 
-  delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
+  get ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
   post   ":id/destroy"=> "books#destroy"#投稿を削除する
 
   # form_forがうまく表示されなかったのはbook_idになっていなかったから

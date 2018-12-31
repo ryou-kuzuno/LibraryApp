@@ -13,6 +13,7 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
+      # binding.pry # nextで処理をすすめる
       @book = Book.find(params[:book_id])
       @user = User.find_by(id: @book.user_id)
       #　ひと目でわかりやすい記述
@@ -29,11 +30,11 @@ class BooksController < ApplicationController
       @new_comment = Comment.new
       # Comment.where ◯◯という条件でcommentsテーブルを検索する
       # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
-      @comments = Comment.where(
+      # @comments = Comment.where(
         # comments: params[:comments],
         # user_id: params[:user_id],
-        book_id: params[:book_id]
-      )
+        # book_id: params[:book_id]
+      # )
     end
 
     #新しく感想を投稿する画面のアクションはheaderからrenderの_new.html.erb

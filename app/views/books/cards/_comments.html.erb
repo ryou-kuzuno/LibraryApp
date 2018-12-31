@@ -1,22 +1,24 @@
 <%# コメントがされたらここに表示される。コメントが古いほうが上に出る %>
 <%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
+<% @comments = Comment.where(impression_id: params[:impression_id]) %>
 
-<% @comments.each do |comment| %>
-  <p><%= comment.comment %></p>
-  <% if @current_user %>
-    <div class="comment-del"><%= link_to "コメントを削除する", "/book_id/destroy" %></div>
+  <% @comments.each do |comment| %>
+    <p><%= comment.comment %></p>
+    <% if comment.user_id %>
+      <div class="comment-del"><%= link_to "コメントを削除する", "/book_id/destroy" %></div>
+    <% end %>
+    <p>-----------</p>
   <% end %>
-  <p>-----------</p>
-<% end %>
+
 
 <div class="comment-form" >
   <%= form_with model: Comment.new, url: '/comments/create', locale: true do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>
-      <%= form.text_field :comment ,:datacomment => params[:comment] %>
-      <%= form.hidden_field :user_id ,:datauserId => @current_user.id %>
-      <%= form.hidden_field :book_id ,:databookId => book_id %>
+      <%= form.text_field :comment %>
+      <%= form.hidden_field :user_id, :value => @current_user.id %>
+      <%= form.hidden_field :book_id, :value => book_id %>
     </div>
     <div class="btn-form">
       <button id="button" type="button">送信</button>
@@ -28,21 +30,23 @@
 <script>
  $(function () {
    $('#button').click(function () {
-     var self = $(this);
-      var userId = self.data("userId");
-      var bookId = self.data("bookId");
-      var comment = self.data("comment");
+      var self = $(this);
+      var userId = $("#comment_user_id").val();
+      var bookId = $("#comment_book_id").val();
+      var comment = $("#comment_comment").val();
       $.ajax({
         url: '/comments/create',
         type: 'POST',
         dataType: "json",
-        timespan: 1000,
+        timespan: 2000,
         data: {
           'user_id' : userId,
           'book_id' : bookId,
           'comment' : comment,
         }
       }).done((data) => {
+        var comments = self.data("comments");
+        comments += data.comment;
         console.log(data.comment);
         console.log("success");
       })

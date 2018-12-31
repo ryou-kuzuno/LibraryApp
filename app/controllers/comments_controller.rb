@@ -1,20 +1,23 @@
 class CommentsController < ApplicationController
   before_action :set_current_user
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   # book.controller.rbにある。
   # newとsaveの自動推測
   def create
-    # binding.pry
     book_id = params[:book_id].to_i
-    comment = params[:comment]
+    new_comment = params[:comment]
     user_id = params[:user_id].to_i
     comment = Comment.new
     comment.book_id = book_id
-    comment.comment = comment
+    comment.comment = new_comment
     comment.user_id = user_id
+    # binding.pry
     if comment.save
-      current_comment = Comment.find_by(comment: comment)
+      # binding.pry
+      # comment = Comment.find_by(comment: comment)
       success_json = {
-        "comment" => current_comment,
+        "comment" => new_comment,
       }
       render :status => :ok, :json => success_json
     else
