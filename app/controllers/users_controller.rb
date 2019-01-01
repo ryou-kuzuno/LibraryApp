@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @impressions = Impression.where(user_id: params[:id])
+    @likes = Like.where(user_id: @user.id)
   end
 
   def new
@@ -70,10 +71,10 @@ class UsersController < ApplicationController
     redirect_to "/index"
   end
 
-  def likes
-    @user = User.find_by(id: params[:id])
-    @likes = Like.where(user_id: @user.id)
-  end
+  # def likes
+  #   @user = User.find_by(id: params[:id])
+  #   @likes = Like.where(user_id: @user.id)
+  # end
 
   def ensure_correct_user
     if @current_user.id != params[:id].to_i

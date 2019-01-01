@@ -8,15 +8,31 @@
 </div>
 
 <div class="switch">
-  <ul>
-    <li class="active"><%= link_to "自分が書いた感想", "/users/#{@user.id}" %></li>
-    <li><%= link_to "押した♡", "/users/#{@user.id}/likes" %></li>
-  </ul>
+    <button class="users">自分が書いた感想</button>
+    <button class="likes">押した♡ </button>
 </div>
 <%# 投稿があるなら表示 %>
-<% @impressions.each do |imp| %>
-  <div class="user_story">
-    <%= link_to imp.story, "/show/#{imp.id}"%>
-  </div>
-<% end%>
+<div id="likes"> 
+  <%= render partial: 'users/likes', locals: { likes: @likes} %>
+</div>
+
+<div id="users">
+  <%= render partial: 'users/user', locals: { impressions: @impressions } %>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  $(function(){
+    $('.likes').click(function(){
+      $('#users').removeClass('active');
+      $('#likes').addClass('active');
+    });
+
+    $('.users').click(function(){
+      $('#likes').removeClass('active');
+      $('#users').addClass('active');
+    });
+  });
+</script>
+
 

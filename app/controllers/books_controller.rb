@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
     #感想一覧を表示するアクション
     def index
-      @test = Book.all.last(2)
+      @near_books = Book.all.last(2)
       @books = Book.all.order(created_at: :desc)
       @books = Book.page(params[:page]).per(10).order('created_at DESC')
       @impressions = Impression.all.order(created_at: :desc)
@@ -13,6 +13,7 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
+      # binding.pry # nextで処理をすすめる
       @book = Book.find(params[:book_id])
       @user = User.find_by(id: @book.user_id)
       #　ひと目でわかりやすい記述
@@ -42,6 +43,7 @@ class BooksController < ApplicationController
     def edit
       # id で検索をかけると、impression_idでの検索となってしまう。
       # book_idでの検索なので、idをbook_idに変更
+      @book = Book.find(params[:book_id])
       @impression = Impression.find_by(book_id: params[:book_id])
     end
 

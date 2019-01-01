@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   post "comments/create" => "comments#create"
 
-  delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
+  get ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
   post   ":id/destroy"=> "books#destroy"#投稿を削除する
 
   # form_forがうまく表示されなかったのはbook_idになっていなかったから
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   patch  "users/:id/update" => "users#update"#ユーザーの変更を反映
   get    "users/:id/edit" => "users#edit" #ユーザー編集画面
-  get    "users/:id/likes"     => "users#likes"#お気に入り画面
+  # get    "users/:id/likes"     => "users#likes"#お気に入り画面
   get    "users/:id"    => "users#show"#ユーザーの詳細画面
   post   "users/create" => "users#create"#ユーザー作成
 

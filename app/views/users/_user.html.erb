@@ -1,0 +1,5 @@
+<% @impressions.each do |imp| %>
+  <div class="user_story">
+    <%= link_to imp.story, "/show/#{imp.id}"%>
+  </div>
+<% end%>
