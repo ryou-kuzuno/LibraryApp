@@ -1,15 +1,15 @@
 <%# コメントがされたらここに表示される。コメントが古いほうが上に出る %>
 <%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
-<% comments = Comment.where(impression_id: params[:impression_id]) %>
-<ul>
+<%# comments = Comment.where(impression_id: params[:impression_id]) %>
+<div class="new_comments">
   <% comments.each do |comment| %>
     <p><%= comment.comment %></p>
     <% if comment.user_id %>
-      <div class="comment-del"><%= link_to "コメントを削除する", "/book_id/destroy" %></div>
+      <div class="comment-del"><%= link_to "コメントを削除する", "/impression_id/destroy" %></div>
     <% end %>
     <p>-----------</p>
   <% end %>
-</ul>
+</div>
 
 
 <div class="comment-form" >
@@ -22,7 +22,7 @@
       <%= form.hidden_field :impression_id, :value => impression_id %>
     </div>
     <div class="btn-form">
-      <button id="button" type="button">送信</button>
+      <button id="button" type="button" >送信</button>
     </div>
   <% end%>
 </div>
@@ -45,9 +45,20 @@
           'impression_id' : impressionId,
           'comment' : comment,
         }
-      }).done((data) => {
-        // var comments = self.data("comments");
-        $('ul').after(self.data("comments"));
+      })
+      .done((data) => {
+        // ◯◯Fieldなので、$("id名")までで終わる。（中身を取り出しているなら、変数も◯◯FieldValとかになるはず）
+        // var commentTextField = $('comment_text_field');
+        // commentTextField.val = "";
+        $('#comment_comment').val("");
+        // var commentTextField = $('comment_text_field').val();
+        // $(self.form).find(commentTextField).val("");
+        // .end().find(":checked").prop("checked", false);　
+
+        var newComment = data.comment;
+        var pTag = $("<p>");
+        pTag.html(newComment);
+        $('.new_comments').after(pTag);
         console.log(data.comment);
         console.log("success");
       })

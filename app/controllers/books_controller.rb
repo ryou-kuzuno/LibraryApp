@@ -5,9 +5,7 @@ class BooksController < ApplicationController
     #感想一覧を表示するアクション
     def index
       @near_books = Book.all.last(2)
-      @books = Book.all.order(created_at: :desc)
       @books = Book.page(params[:page]).per(10).order('created_at DESC')
-      @impressions = Impression.all.order(created_at: :desc)
       @impressions = Impression.page(params[:page]).per(10).order('created_at DESC')
     end
 
@@ -30,11 +28,12 @@ class BooksController < ApplicationController
       @new_comment = Comment.new
       # Comment.where ◯◯という条件でcommentsテーブルを検索する
       # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
-      @comments = Comment.where(
-        # comments: params[:comments],
-        # user_id: params[:user_id],
-        book_id: params[:book_id]
-      )
+      @comments = []
+      @impressions.each do |impression|
+        comment = Comment.where(impression_id: impression.id)
+        @comments.concat(comment)
+      end
+
     end
 
     #新しく感想を投稿する画面のアクションはheaderからrenderの_new.html.erb
