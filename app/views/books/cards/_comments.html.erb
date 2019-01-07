@@ -2,8 +2,9 @@
 <%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
 <%# comments = Comment.where(impression_id: params[:impression_id]) %>
 <div class="new_comments">
-  <% comments.each do |comment| %>
-    <p><%= comment.comment %></p>
+  <% comments.each_with_index do |comment, index| %>
+
+    <p><%= index %>:<%= comment.comment %></p>
     <% if comment.user_id %>
       <div class="comment-del"><%= link_to "コメントを削除する", "/impression_id/destroy" %></div>
     <% end %>
@@ -13,7 +14,8 @@
 
 
 <div class="comment-form" >
-  <%= form_with model: Comment.new, url: '/comments/create', locale: true do |form| %>
+<%# , locale: true ?? urlも外せると思ったけれどエラーが出た %>
+  <%= form_with model: Comment.new, url: '/comments/create' do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>
@@ -22,15 +24,15 @@
       <%= form.hidden_field :impression_id, :value => impression_id %>
     </div>
     <div class="btn-form">
-      <button id="button" type="button" >送信</button>
+      <button id="button_form" type="button" >送信</button>
     </div>
   <% end%>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<%# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> %>
 <script>
  $(function () {
-   $('#button').click(function () {
+   $('#button_form').click(function () {
       var self = $(this);
       var userId = $("#comment_user_id").val();
       var impressionId = $("#comment_impression_id").val();
@@ -48,12 +50,7 @@
       })
       .done((data) => {
         // ◯◯Fieldなので、$("id名")までで終わる。（中身を取り出しているなら、変数も◯◯FieldValとかになるはず）
-        // var commentTextField = $('comment_text_field');
-        // commentTextField.val = "";
         $('#comment_comment').val("");
-        // var commentTextField = $('comment_text_field').val();
-        // $(self.form).find(commentTextField).val("");
-        // .end().find(":checked").prop("checked", false);　
 
         var newComment = data.comment;
         var pTag = $("<p>");

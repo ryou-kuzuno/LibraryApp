@@ -61,14 +61,15 @@ class UsersController < ApplicationController
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @mail = params['mail']
       @password = params['password']
-      render "/"
+      # render :action => "login_form" # postで/loginを打っているからurlが残るrenderがかかっていない
+      redirect_to "/login/user"
     end
   end
 
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    redirect_to "/index"
+    
   end
 
   # def likes

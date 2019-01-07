@@ -28,11 +28,11 @@ class BooksController < ApplicationController
       @new_comment = Comment.new
       # Comment.where ◯◯という条件でcommentsテーブルを検索する
       # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
-      @comments = []
-      @impressions.each do |impression|
-        comment = Comment.where(impression_id: impression.id)
-        @comments.concat(comment)
-      end
+      # @comments = []
+      # @impressions.each do |impression|
+      #   comment = Comment.where(impression_id: impression.id)
+      #   @comments.concat(comment)
+      # end
 
     end
 
