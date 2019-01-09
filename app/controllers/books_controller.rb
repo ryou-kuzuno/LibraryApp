@@ -12,6 +12,7 @@ class BooksController < ApplicationController
     #本の詳細画面でのアクション
     def show
       # binding.pry # nextで処理をすすめる
+      # @books = Book.new
       @book = Book.find(params[:book_id])
       @user = User.find_by(id: @book.user_id)
       #　ひと目でわかりやすい記述

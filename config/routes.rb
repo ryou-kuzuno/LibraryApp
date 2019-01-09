@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get    "signup"        => "users#new"#ユーザー新規登録
   post   "login"        => "users#login"#ログインする
   get   "logout"       => "users#logout"#ログアウトする
-  get    "login/user"         => "users#login_form"#ログイン画面
+  get    "/"         => "users#login_form"#ログイン画面
   # railsの規約に合わせると model + actionの形にroutingもしておくのがベター
   post   "books/create"        => "books#create"#本を作るアクション
 

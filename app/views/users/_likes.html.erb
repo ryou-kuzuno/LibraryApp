@@ -1,8 +1,10 @@
 
+<% if likes %>
 <%# お気に入りがあるなら表示 %>
-<% likes.each do |like| %>
-  <div class="user_story">
-    <%= like.user.nicename%>
-    <%= like.impression.story%>
-  </div>
-<% end%>
+  <% likes.each do |like| %>
+    <div class="user_story">
+      <%= like.user.nicename %>
+      <%= like.impression.impressions %>
+    </div>
+  <% end %>
+<% end %>

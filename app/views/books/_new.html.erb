@@ -19,7 +19,7 @@
         <%= form.text_field :title , html: {class: 'title'} ,:placeholder => "本のタイトル" %>
     </div>
     <div class="card-text">
-      <%=  form.fields_for book.impressions.build do |field| %>
+      <%=  form.fields_for book.impressions.new do |field| %>
       <%= field.hidden_field :user_id ,:value =>  @current_user %>
         <%= field.text_area :story  , html: {class: 'story'} ,:placeholder => "あらすじ"%>
 

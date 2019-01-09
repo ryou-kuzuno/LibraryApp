@@ -14,8 +14,8 @@
 
 
 <div class="comment-form" >
-<%# , locale: true ?? urlも外せると思ったけれどエラーが出た %>
-  <%= form_with model: Comment.new, url: '/comments/create' do |form| %>
+<%# model: Comment.new でなくても行けた %>
+  <%= form_with model: Comment, url: '/comments/create' do |form| %>
 
     <div class="comment">
       <%= form.label :コメント %>
