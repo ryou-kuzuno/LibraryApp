@@ -1,3 +1,10 @@
+img  {
+    display: inline-block;
+    width: 150px;
+    margin: 0px;
+    padding: 0px;
+}
+
 .card-show {
     img {
         width: 30%;
@@ -34,3 +41,114 @@
     border: 3px solid blue;
 }
 
+.card-poket {
+    padding: 10px 40px 10px 0px;
+    .card-top {
+        display: inline-block;
+        .book-info {
+            .title {
+                color: red;
+                padding: 15px;
+                font-size: 25px;
+            }
+            .author {
+                color: blue;
+                padding: 15px;
+                font-size: 25px;
+            }
+            p {
+                font-size: 30px;
+            }
+        }
+    }
+
+    .card-text {
+        p {
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .story {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+        .impressions {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+    }
+}
+
+.card {
+    width: 100%;
+    height: auto;
+    padding: 30px 10px;
+    margin: 10px;
+    font-weight: bold;
+    background-color: white;
+    .card-top {
+        display: inline-block;
+        .book-info {
+            .title {
+                color: red;
+                padding: 15px;
+                font-size: 25px;
+            }
+            .author {
+                color: blue;
+                padding: 15px;
+                font-size: 25px;
+            }
+            p {
+                font-size: 30px;
+            }
+        }
+    }
+
+    .card-text {
+        p {
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .story {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+        .impressions {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+    }
+}
+
+@media screen and (max-width: 480px){
+    .card p {
+      color:rgb(223, 247, 9);
+    }
+    }
+
+.card-show {
+    width: 100%;
+    height: auto;
+    padding: 30px 10px;
+    margin: 10px;
+    // border-radius: 5%;  角に丸みをつけるプロパティ
+    font-weight: bold;
+    background-color: white;
+}
+
+.card-brock {
+    display: block;
+}
+
+.card-textarea{
+    display: block;
+    padding: 10px;
+    margin: 5px 18px 5px 5px;
+    width: 90%;
+}

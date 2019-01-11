@@ -6,7 +6,7 @@ class Book < ApplicationRecord
 
     belongs_to :users, optional: true
     #optional: trueはnilを許容するバリデーション
-    has_many :impressions
+    has_many :impressions, :dependent => :destroy
 
     # scope :search_by_title, ->(title) {
     #     where("title like '%#{title}%'")

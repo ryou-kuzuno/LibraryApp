@@ -87,12 +87,26 @@ class BooksController < ApplicationController
     end
 
     #投稿内容を削除するためのアクション
+    #modelにひつようdependent: :destroy
     def destroy
       @book = Book.find(params[:id])
-      @impression = Impression.find(params[:id])
-      @impression.destroy
       @book.destroy
       redirect_to "/index"
+      # @book = Book.find(params[:id])
+      # @impressions = @book.impressions
+      # @impressions.each do |impression|
+      #   @likes = impression.likes
+      #   @likes.each do |like|
+      #     like.destroy
+      #   end
+      #   @comments = impression.comments
+      #   @comments.each do |comment|
+      #     comment.destroy
+      #   end
+      #   impression.destroy
+      # end
+      # @book.destroy
+      # redirect_to "/index"
     end
 
     def search

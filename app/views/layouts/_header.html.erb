@@ -6,12 +6,11 @@
       <ul>
         <li class="write-modal">押すと感想書ける</li>　
         <li><%= link_to "新着20件見るなら押す", "/index" %></li>
-        <li><%= link_to "自分の♡見るなら押す" ,"/users/#{@current_user.id}/likes" %></li>
         <li><%= link_to "#{@current_user.nicename}の本棚", "/users/#{@current_user.id}"%></li>
         <li class="search">
           <%= form_with(model: @book, url: '/search', local: true, method: :get) do |form| %>
             <%= form.text_field :search_key %>
-            <%= form.submit '検索', :title => nil, :author => nil %>
+            <%= form.submit '検索なら押す', :title => nil, :author => nil %>
           <% end%>
         </li>
       </ul>
@@ -33,9 +32,9 @@
         <li><%= link_to "新規に登録するなら押す", "/signup" %></li>
         <li  class="search">
         <%# 本のタイトルのみで検索できます。 %>
-          <%= form_with(url: '/search', local: true, method: :get) do |form| %>
+          <%= form_with url: '/search', local: true, method: :get do |form| %>
             <%= form.text_field :search_key %>
-            <%= form.submit 'タイトルしか検索できないが、押す' %>
+            <%= form.submit '検索なら押す' %>
           <% end%>
         </li>
       </ul>

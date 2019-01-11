@@ -62,14 +62,13 @@ class UsersController < ApplicationController
       @mail = params['mail']
       @password = params['password']
       # render :action => "login_form" # postで/loginを打っているからurlが残るrenderがかかっていない
-      redirect_to "/login/user"
+      render "/"
     end
   end
 
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
-    
   end
 
   # def likes
