@@ -1,120 +1,144 @@
-# LibraryApp
+## 環境
+windows 7
+vscode
 
-## rails s までの手順
-自分の中でのまとめと、他の方が書かれていた記事を自分向けにまとめる
+## $ ディレクトリを作成する
+    # 例　
+    C:\Users\kuzuno>mkdir TestApp
+    C:\Users\kuzuno>cd TestApp
+    #実行後
+    C:\Users\kuzuno\TestApp>
 
-前提条件?
-'rails', '~> 5.2.2'
-ruby '2.5.1'
-'mysql2', '>= 0.4.4', '< 0.6.0'
+ターミナルに移動
+(全てスペースを入れる際は半角スペース、全角だとエラーが出る)
 
-まずはじめに作業フォルダを作ります。初めのうちはエクスプローラーから作ってました。
-```
-$ mkdir 作業ディレクトリ名
-```
-例　C:\Users\kuzuno> mkdir TestApp
-TestApp　先頭を大文字にしたのは後で見やすいように。
+mkdir フォルダ名
+cd  さっき作ったフォルダ
+「TestApp」でなくともあとで何をしていたかわかる名前
+「onigiriatatamemasuka」とか
+## Gemfileの作成
+    # 例
+    TestApp>bundle init
 
-作り終わったら
-```
-$ cd  さっき作ったフォルダ
-例　　　C:\Users\kuzuno> cd TestApp
-実行後　C:\Users\kuzuno\TestApp>
 
-$ bundle init
-```
-上記実行すると作成したフォルダの中でGemfileという雛形ファイルが作成されます。そして生成されたGemfileを編集します。（railsのコメントを外すだけ）
-７行目あたりにある
-### gem rails　の　# を外して
-gem rails 　　に変える
+上記を実行すると作成したフォルダの中にGemfileが作成されます
+そのGemfileを編集します（railsのコメントを外すだけ）
+Gemfileの７行目にある
+    # gem "rails"　の　# を外して
+     gem "rails" 　　に変えて保存します
 
-### これは別
-```
-$ gem install rails
-$ rails new project-app
-```
-#### 上記のコードではシステムのgemにインストールされてしまいます。システムのgemはできるだけクリーンに保ち、gemはvendor/bundleに入れて
-#### bundle execで呼び出す
 
-よくわからん　ここから
-```
-$ bundle install --path vendor/bundle　--jobs=4
-```
---jobs=4とやると、並列でgem installしてくれる
-並列数はjobsパラメータで指定した数
-https://qiita.com/camelmasa/items/5ca27ab398f105f86c76
+## gemをパス指定でインストールする
+    TestApp>bundle install --path vendor/bundle
 
---pathでインストール先を指定可能。一度オプションをつけてbundle installしたら -path指定でインストールしたら、次回以降はpath指定無しでbundle installを行っても同じpathが選択されます。
+これで、railsのコマンド(rails newとか)を利用することが出来るようになります。
+この時「Gemfile.lock」というファイルができます。これは、インストールしたgemの名前とバージョンが記載されており既存のGem に変更を加えたい場合に使います 
+gemを加えたい時はGemfailに記述してもう一度`bundle install`をします
 
-この時、インストールしたgemの名前とバージョンを記載した「gemfile.lock」というファイルが作成されます。
-```
-$ bundle exec rails new . -B -d mysql --skip-turbolinks --skip-test
-```
--d, --database=DATABASE	指定したデータベースに変更する（railsのデフォルトのDBはsqlite3）
 
---skip-turbolinks	turbolinksをオフにする　
+--path vendor/bundle
+システムのgemをできるだけクリーンに保つためフォルダ内のvendor/bundleに格納する
 
---skip-test	railsのデフォルトのminitestというテストを使わない時に付ける。RSpecなどほかのテストフレームワークを利用したい時に使うと良い
+--pathでインストール先を指定可能です。一度-path指定でインストールしたら、次回以降はpath指定無しでbundle installを行っても同じpathが選択されます
 
-ｰB, --skip-bundle	Railsプロジェクト作成時にbundle installを行わないようにする
 
-ここまで
 
-Railsのインストール実行時にGemfileを上書きしていいか聞かれますが、yesにして続行します。
+## 作業フォルダを作成する
+    TestApp>bundle exec rails new ??? -B -d mysql
 
-database.yml　で　rootpassを設定する
-そのあとデータベースを作成する。これが必要１
-database.ymlの内容でデータベースを作成
-```
-$ bundle exec rake db:create
-```
-#### テーブル作成
-```
-$ bundle exec rails g model モデル名 フィールド:型:(unique|index)
-```
-#### 一例
-```
-$ bundle exec rails g model User uuid:string:unique name:string
-```
-model とmaigraateファイル作成完了
+もう一度`bundle install --path vendor/bundle`を実行。たぶんもっと楽な方法あると思う
 
-モデルの変更を確定。モデル作成していなくてもする２
-db/migrateディレクトリの中にあるスクリプトファイルに基づいてデータベースにテーブルを作成します．
-```
-bundle exec rails db:migrate
-```
-あとからの変更について　ここから
-マイグレーションを使ってテーブルに変更を行う場合、以前のマイグレーションスクリプトを修正するのではなく、変更を加える為の別のマイグレーションスクリプトを作成し実行します。
+#### ???が「.」なら今いるディレクトリ、「todo」や「name」など名前を付けるとひとつ下の階層にフォルダが作られる
 
-モデルを作成する時に自動で作成されるものではなく、新しくマイグレーションスクリプトを作成するには次のように実行します。
-```
-rails generate migration クラス名
-```
-クラス名は任意ですが、通常は「行なう処理＋テーブル名」のようになります。例えば「AddColumnTitles」です。
+--skip-bundleオプションをつけないと、rails newコマンド実行時に、グローバルな場所に、関連gemがインストールされてしまいます
+###　名前を付けた場合
+`cd 名前`で作成した名前のフォルダに移動する。
+### .(どっと)ならcdの必要なし
+.（ドット）にすると現在のディレクトリにRailsプロジェクトが生成されます。（この場合はcdの必要なし。
+インストール実行時にターミナルの中で「Gemfileを上書きしていいか？」と聞かれますが、yesで続行します）
 
-ここまで
 
-コントローラー名は複数形で、頭文字を大文字にする。
-newアクションを持つUsersコントローラーを作るときは次のように入力する。これをしないとroute.rbの設定ができない。
+-d mysql  　☚mysqlにデータベースを変更（railsのデフォルトのDBはsqlite3）
 
-頭にbundle execが必要かどうか。付けておけば無難。
+ｰB, --skip-bundle　　☚システムにbundle installを行わないように
+
+
+## database.ymlでrootpassを設定（Mysqlのみ？）
+
+今作ったフォルダの中にある
+`config/database.yml`の17行目あたりにデーターベースの(Mysqlとかの)パスワードを入れてください
+
+    password: ぱすわーど
+    #（半角スペース空けないとエラー）　
+
+## データベース作成
+データベースを作成します。そういえばrails == rakeらしいです(いみなし)
+
+
+    $ bundle exec rails db:create
+としてあげます
+これで`bundle exec rails s`をするとYay! You’re on Rails!と表示されるはずです！！！
+### テーブル作成
+    # テーブル作成
+    $ bundle exec rails g model モデル名 フィールド:型 
+    # 例
+    $ bundle exec rails g model User name:string 
+
+モデル名の一文字目は大文字、単数形
+今ファイルに直に書き込めばいい。/db/migrate
+    t.string :name
+    t.integer :age
+
+model とmaigrateファイル作成完了
+
+モデルの変更を確定するため
+
+    bundle exec rails db:migrate
+
+## コントローラーを作成
+
+コントローラー名は複数形で、頭文字を大文字にします
+newアクションを持つUsersコントローラーを作るときは次のように入力します
+
+
+    $ bundle exec rails generate controller Users new
+
+```users.controller.rb　
+
+    def new
+    end
 ```
-$ bundle exec rails generate controller Users new
+
+```route.rb
+    get 'users/new'
 ```
-これで
-users.comtroller.rb　が作成されてその中に
+が作られる
+
+# ブラウザを起動する
+先頭に`bundle exec`を忘れないように
+
+ブラウザでlocalhost:3000を表示する
+Yay! You're on Rails!が表示されると成功
+
+```route.rb
+
+    get "/" => "users#new"
 ```
-def new
-end
-```
-が作られる。
+とすると同じURLで自動生成のuserコントローラーのnewアクションでページが表示される
+
+### A server is already running.
+このエラーが出た場合は
+`/tmp/pids/server.pid.`
+このファイルを消せば治ります
+
+## 最後に
+
+`git push `をする前に
+.gitignoreの中に
 
 ```
-$ bundle exec rails s
+    vender/
+    vendor/
 ```
-localhost:3000を
-表示される。
 
-git の前に
-
-.gitignoreで/vandor /vanderを書いてから
+と書くと時間短くなるので先に書いておくと
