@@ -1,5 +1,4 @@
 <div class="form-heading">新規ユーザー登録</div>
-
 <div class="form users-form">
   <div class="form-body">
     <% @user.errors.full_messages.each do |message| %>
@@ -7,23 +6,11 @@
         <%= message %>
       </div>
     <% end %>
-
-    <%= form_with url: "/users/create", local: true do |form| %>
-      <div class="#">
-        <%= form.label :ユーザー名 %>
-        <%= form.text_field :nicename %>
-      </div>
-      <div class="#">
-        <%= form.label :メールアドレス %>
-        <%= form.email_field :mail %>
-      </div>
-      <div class="#">
-        <%= form.label :パスワード %>
-        <%= form.text_field :password %>
-      </div>
-      <div class="#">
-        <%= form.submit '新規登録 ' %>
-      </div>
-    <% end %>
+      <%= form_with url: "/users/create", local: true do |form| %>
+        <%= form.text_field :nicename, :placeholder => "ユーザー名" %>
+        <%= form.email_field :mail, :placeholder => "メールアドレス" %>
+        <%= form.text_field :password, :placeholder => "パスワード" %>
+        <%= form.submit '新規登録' %>
+      <% end %>
   </div>
 </div>

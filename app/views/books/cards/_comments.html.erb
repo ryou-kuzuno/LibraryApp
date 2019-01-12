@@ -3,7 +3,6 @@
 <%# comments = Comment.where(impression_id: params[:impression_id]) %>
 <div class="new_comments">
   <% comments.each_with_index do |comment, index| %>
-
     <p><%= index %>:<%= comment.comment %></p>
     <% if comment.user_id %>
       <div class="comment-del"><%= link_to "コメントを削除する", "/impression_id/destroy" %></div>
@@ -11,12 +10,9 @@
     <p>-----------</p>
   <% end %>
 </div>
-
-
 <div class="comment-form" >
 <%# model: Comment.new でなくても行けた %>
   <%= form_with model: Comment, url: '/comments/create' do |form| %>
-
     <div class="comment">
       <%= form.label :コメント %>
       <%= form.text_field :comment %>
@@ -26,10 +22,8 @@
     <div class="btn-form">
       <button id="button_form" type="button" >送信</button>
     </div>
-  <% end%>
+  <% end %>
 </div>
-
-<%# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> %>
 <script>
  $(function () {
    $('#button_form').click(function () {
@@ -51,7 +45,6 @@
       .done((data) => {
         // ◯◯Fieldなので、$("id名")までで終わる。（中身を取り出しているなら、変数も◯◯FieldValとかになるはず）
         $('#comment_comment').val("");
-
         var newComment = data.comment;
         var pTag = $("<p>");
         pTag.html(newComment);

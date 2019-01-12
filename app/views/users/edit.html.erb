@@ -6,11 +6,11 @@
 
 <%= form_with model: @user, url: "update", local: true do |form| %>
   <div class="#">
-    <%= form.label :ユーザー名 ,:class => "name_form" %>
+    <%= form.label :ユーザー名, :class => "name_form" %>
     <%= form.text_field :nicename %>
   </div>
   <div class="#">
-    <%= form.label :メールアドレス , :class => "mail_form"%>
+    <%= form.label :メールアドレス, :class => "mail_form" %>
     <%= form.email_field :mail %>
   </div>
   <div class="save_form">

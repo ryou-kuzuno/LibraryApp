@@ -6,12 +6,12 @@
       <ul>
         <li class="write-modal">押すと感想書ける</li>　
         <li><%= link_to "新着20件見るなら押す", "/index" %></li>
-        <li><%= link_to "#{@current_user.nicename}の本棚", "/users/#{@current_user.id}"%></li>
+        <li><%= link_to "#{@current_user.nicename}の本棚", "/users/#{@current_user.id}" %></li>
         <li class="search">
-          <%= form_with(model: @book, url: '/search', local: true, method: :get) do |form| %>
+          <%= form_with model: @book, url: '/search', local: true, method: :get do |form| %>
             <%= form.text_field :search_key %>
-            <%= form.submit '検索なら押す', :title => nil, :author => nil %>
-          <% end%>
+            <%= form.submit '検索なら押す' %>
+          <% end %>
         </li>
       </ul>
         <div class="hidden_box">
@@ -21,7 +21,7 @@
           <div class="hidden_show">
             <!--ここに隠す中身-->
             <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit" %>
-            <%= link_to "退会フォームか。ログアウトしますか？", "/logout" %>
+            <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "/logout" %>
           </div>
         </div>
     <%# user非ログイン時 %>
@@ -31,28 +31,23 @@
         <li><%= link_to "ログインするなら押す", "/" %></li>
         <li><%= link_to "新規に登録するなら押す", "/signup" %></li>
         <li  class="search">
-        <%# 本のタイトルのみで検索できます。 %>
           <%= form_with url: '/search', local: true, method: :get do |form| %>
             <%= form.text_field :search_key %>
             <%= form.submit '検索なら押す' %>
-          <% end%>
+          <% end %>
         </li>
       </ul>
-    <% end%>
+    <% end %>
   </div>
 </header>
-
 <% if @current_user %>
   <div class="write">
     <%= render partial: 'books/new'%>
   </div>
 <% end %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
 <script>
  $(function() {
-  // clickイベント
   $('.write-modal').click(function(){
     $('.write').fadeIn();
   });

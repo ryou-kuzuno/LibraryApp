@@ -1,5 +1,5 @@
 class Impression < ApplicationRecord
-    validates :story , presence: true
+    validates :story, presence: true
     validates :impressions, presence: true
 
     has_many :comments, :dependent => :destroy

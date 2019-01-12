@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
-  before_action :user_logged_in, only: [:show , :reply,  :create, :edit]
-
+  before_action :user_logged_in, only: [:show, :reply, :create, :edit]
 
     #感想一覧を表示するアクション
     def index
@@ -11,11 +10,8 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-      # binding.pry # nextで処理をすすめる
-      # @books = Book.new
       @book = Book.find(params[:book_id])
       @user = User.find_by(id: @book.user_id)
-      #　ひと目でわかりやすい記述
       # @bookというインスタンスに紐づく感想の一覧にアクセスして、@impressionsに代入しているだけ
       # 本 ♡5
       #  + 感想1 ♡2
@@ -27,22 +23,11 @@ class BooksController < ApplicationController
       #      + like5
       @impressions = @book.impressions
       @new_comment = Comment.new
-      # Comment.where ◯◯という条件でcommentsテーブルを検索する
-      # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
-      # @comments = []
-      # @impressions.each do |impression|
-      #   comment = Comment.where(impression_id: impression.id)
-      #   @comments.concat(comment)
-      # end
-
     end
 
     #新しく感想を投稿する画面のアクションはheaderからrenderの_new.html.erb
-
     #感想の編集画面のアクション
     def edit
-      # id で検索をかけると、impression_idでの検索となってしまう。
-      # book_idでの検索なので、idをbook_idに変更
       @book = Book.find(params[:book_id])
       @impression = Impression.find_by(book_id: params[:book_id])
     end
@@ -57,21 +42,20 @@ class BooksController < ApplicationController
         user_id: @current_user.id
       )
       @book.image.attach(params[:image])
-
       # book.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
       # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
       impression = @book.impressions.build(
         story: params["impression"]["story"],
         impressions: params["impression"]["impressions"],
         user_id: @current_user.id,
-        book_id: @book.id
+        book_id: @book.id,
       )
       if @book.save
         redirect_to "/index"
       else
         @erorr_message = "送信失敗しました。"
+        render 'index'
       end
-
     end
 
     #投稿の編集内容を反映するアクション
@@ -92,6 +76,7 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
       @book.destroy
       redirect_to "/index"
+      # 力技のコード☟
       # @book = Book.find(params[:id])
       # @impressions = @book.impressions
       # @impressions.each do |impression|
@@ -127,7 +112,6 @@ class BooksController < ApplicationController
         @books += Book.where("title LIKE ? OR author LIKE ?", "%#{keyword}%", "%#{keyword}%")
       end
       @books.uniq!
-
       # search_key_word = params[:search_key]
       # @books = Book.where("title LIKE ? OR author LIKE ?", "%#{search_key_word}%", "%#{search_key_word}%")
       if  @books.empty?

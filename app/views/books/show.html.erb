@@ -1,73 +1,59 @@
 <%= link_to "新着一覧に戻ります", "/index"%>
-<% # この部分は、唯一の要素としたいので、idで要素を指定している %>
+<%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
+<%# この部分は、唯一の要素としたいので、idで要素を指定している %>
 <div class="card-show" id="js-card-show" data-user-id="<%= @current_user.id %>" data-book-id="<%= @book.id %>">
   <div class="card-image">
-    <% if @book.image.attached?  %>
-      <%= image_tag @book.image  %>
+    <% if @book.image.attached? %>
+      <%= image_tag @book.image %>
     <% end %>
   </div>
   <div class="card-right">
     <p>作者</p>
-    <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
-    <h1>
-      <%= @book.author%>
-    </h1>
+    <h1><%= @book.author %></h1>
     <p>タイトル</p>
-    <h1>
-      <%= @book.title %>
-    </h1>
+    <h1><%= @book.title %></h1>
   </div>
   <%#  1つの本に対して感想は複数存在する %>
   <div class="card-text">
     <% @impressions.each_with_index do |impressions, index| %>
     <p>題名</p>
-    <p>
-      <%= impressions.story %>
-    </p>
+    <p><%= impressions.story %></p>
     <p>かんそう</p>
-    <p>
-      <%= impressions.impressions %>
-    </p>
-
+    <p><%= impressions.impressions %></p>
     <div class="card-under">
         <% if Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
-          <%  #メモ
-            # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
-            # パラメータを渡してなにか処理をする、といった場合はformを使う
-            #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
-            %>
-          <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart" >favorite</span>
+          <%#メモ
+            そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+            パラメータを渡してなにか処理をする、といった場合はformを使う %>
+          <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart">favorite</span>
           <span><%= impressions.likes.count %></span>
         <% else %>
-          <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
-          <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
+          <%# メモ formのsubmitを何かしらでsubmitしないと行けない %>
+          <%# 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
           <span data-liked="false" data-impression-id="<%= impressions.id %>" class="material-icons">favorite</span>
           <span><%= impressions.likes.count %></span>
         <% end %>
     </div>
   </div>
-
   <div>
     <% if @current_user.id == impressions.user.id %>
-    <%= link_to "編集", "/#{impressions.id}/edit"%>
+    <%= link_to "編集", "/#{impressions.id}/edit" %>
     <%= link_to "削除", "/#{impressions.id}/destroy", :method => :post %>
-    <% end%>
+    <% end %>
   </div>
 </div>
-
 </div>
 
-<% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
-<%= render partial: 'books/cards/comments', locals: { impression_id: impressions.id, comments: impressions.comments} %>
+<%# イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
+<%= render partial: 'books/cards/comments', locals: { impression_id: impressions.id, comments: impressions.comments } %>
 <% end %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<%# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> %>
 <script>
   $(function () {
     // userIdとbookIdはページローディング時に毎回固定されるので、一度だけ読み込むようにする
     var userId = $("#js-card-show").data("user-id");
     var bookId = $("#js-card-show").data("book-id");
-
     $('.material-icons').click(function () {
       // @current_user.idなどをJavaScriptには直接記述できない
       // そのため、カスタムdata属性を使って、予めHTMLに埋め込んでおき、JavaScript実行時にその値を取り出して利用する
@@ -93,7 +79,6 @@
             var currentCount = parseInt(currentCountText);
             console.log(currentCount);
             self.next()[0].innerText = (data.count).toString();
-
             self[0].dataset.liked = false;
             console.log("success");
           })
@@ -120,8 +105,6 @@
             $(this).addClass('hart');
             // doneの場合（処理が成功した場合）は、dataに''リクエスト形式のデータが入る（json）ここでcountしているからcontrlloerでのカウント必要ないと思った
             console.log(data.count);
-            // +1をjQueryを使って行う
-            // @todo
             var currentCountText = self.next()[0].innerText;
             console.log(currentCountText);
             var currentCount = parseInt(currentCountText);
@@ -142,21 +125,10 @@
             console.log("always");
           });
       }
-
     });
   });
 </script>
-
-<%
-# 通常javascriptの処理は、.jsファイルに記述する。
-# 今は暫定で、HTML（erb）に直書きしている
-# javascriptを学習する際に
-# - asset pipline
-# - jsファイルの読み込み
-# - jsファイルの書き方
-# などを一緒に学習しましょう
-#
-%>
+<%# 通常javascriptの処理は、.jsファイルに記述する。%>
 <script>
   // Like処理のsubmitをjavascriptで発火させる
   // idを指定できるようにしているのは、複数のimpression（感想）があって、like-formが複数できる予定だから

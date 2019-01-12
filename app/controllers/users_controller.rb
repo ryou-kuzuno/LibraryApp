@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.new(
       nicename: params["nicename"],
       mail: params["mail"],
-      password: params["password"]
+      password: params["password"],
     )
     if @user.save
       session[:user_id] = @user.id
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(
       mail: params['mail'],
-      password: params['password']
+      password: params['password'],
     )
     if @user
       session[:user_id] = @user.id
@@ -70,11 +70,6 @@ class UsersController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
   end
-
-  # def likes
-  #   @user = User.find_by(id: params[:id])
-  #   @likes = Like.where(user_id: @user.id)
-  # end
 
   def ensure_correct_user
     if @current_user.id != params[:id].to_i

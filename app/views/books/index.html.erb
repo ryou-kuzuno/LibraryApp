@@ -1,18 +1,14 @@
-
-
-    <p>最近読まれた本</p>
-
-  <% @near_books.each_with_index do |book , index|%>
+<p>最近読まれた本</p>
+  <% @near_books.each do |book| %>
     <div class="image">
-      <% if book.image.attached?  %>
-        <%= image_tag book.image  %>
+      <% if book.image.attached? %>
+        <%= image_tag book.image %>
       <% end %>
     </div>
     <div class="title">
       <%= link_to book.title , "/show/#{book.id}" %>
     </div>
-  <% end%>
-
+  <% end %>
 <p>新着一覧</p>
 <%= paginate @books %>
 <%= render partial: 'books/cards/cards' %>
@@ -25,7 +21,6 @@
 <script>
   $(function(){
     $('#back-to-top').hide();
-
     $(window).scroll(function(){
       $('#pos').text($(this).scrollTop());
       if ($(this).scrollTop() > 60) {

@@ -1,16 +1,16 @@
-<%= form_with model: @impression, url: "/impression/update", local: true do |form|%>
+<%= form_with model: @impression, url: "/impression/update", local: true do |form| %>
   <div class="card">
     <div class="card-top">
       <%= form.hidden_field :book_id %>
       <div class="card-image">
-        <% if @book.image.attached?  %>
-          <%= image_tag @book.image  %>
+        <% if @book.image.attached? %>
+          <%= image_tag @book.image %>
         <% end %>
         <%= form.file_field :image %>
       </div>
       <div class="story">
         <%= form.label :あらすじ %>
-        <%= form.text_area :story  %>
+        <%= form.text_area :story %>
       </div>
       <div class="impressions">
         <%= form.label :感想 %>
@@ -22,6 +22,5 @@
     <%= form.submit '保存' %>
   </div>
 <% end %>
-
-<%= link_to "削除", "/#{@impression.book_id}/destroy", {method: "post"} %>
-<%= link_to "戻る", "/show/#{@impression.book_id}.id"%>
+<%= link_to "削除", "/#{@impression.book_id}/destroy", { method: "post" } %>
+<%= link_to "戻る", "/show/#{@impression.book_id}.id" %>

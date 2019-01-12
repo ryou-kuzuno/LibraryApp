@@ -1,4 +1,3 @@
-<%# 二つのテーブルをつなげるzipオブジェクトを使ってeachしている。こんなことせんでも二つに分けて出来そうやけどそうしたらエラーが出た？ %>
 <% @books.zip(@impressions).each do |book, impression| %>
   <div class="card-poket">
     <div class="card">
@@ -19,7 +18,6 @@
               </div>
             </div>
         </div>
-
       <div class="card-text">
         <p>題名</p>
         <div class="story">

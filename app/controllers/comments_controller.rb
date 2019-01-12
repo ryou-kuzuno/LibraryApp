@@ -12,20 +12,17 @@ class CommentsController < ApplicationController
     comment.impression_id = impression_id
     comment.comment = new_comment
     comment.user_id = user_id
-    # binding.pry
     if comment.save
-      # binding.pry
       # comment = Comment.find_by(comment: comment)
       success_json = {
         "comment" => new_comment,
       }
       render :status => :ok, :json => success_json
     else
-      failer_json_object = {'status' => 'failer'}
+      failer_json_object = { 'status' => 'failer' }
       render :status => :internal_server_error, :json => failer_json_object
     end
     # @new_comment = Comment.create params.require(:comment).permit(:book_id, :comment, :user_id)
-
     # redirect_to "/show/#{params[:comment][:book_id]}"
   end
 
@@ -33,6 +30,6 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     comment.delete
-    redirect_to comment.book, flash: { notice: "コメントが削除されました"}
+    redirect_to comment.book, flash: { notice: "コメントが削除されました" }
   end
 end

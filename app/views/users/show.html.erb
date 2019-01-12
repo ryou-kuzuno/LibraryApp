@@ -1,9 +1,8 @@
 <div class="user">
   <h2><%= @user.nicename %></h2>
-  <%# user.mailと編集リンクを表示 %>
   <% if @user.id == @current_user.id %>
     <p><%= @user.mail %></p>
-    <p><%= link_to("編集しますか？", "/users/#{@user.id}/edit") %></p>
+    <p><%= link_to "編集しますか？", "/users/#{@user.id}/edit" %></p>
   <% end %>
 </div>
 
@@ -11,16 +10,13 @@
     <button class="users">自分が書いた感想</button>
     <button class="likes">押した♡ </button>
 </div>
-<%# 投稿があるなら表示 %>
-<div id="likes"> 
-  <%= render partial: 'users/likes', locals: { likes: @likes} %>
+<div id="likes">
+  <%= render partial: 'users/likes', locals: { likes: @likes } %>
 </div>
-
 <div id="users">
   <%= render partial: 'users/user', locals: { impressions: @impressions } %>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 // ここの処理間違えている何をしたいのかがわからない
   $(function(){
@@ -28,7 +24,6 @@
       $('#users').removeClass('active');
       $('#likes').addclass('active');
     });
-
     $('.users').click(function(){
       $('#likes').removeClass('active');
       $('#users').addClass('active');
