@@ -6,28 +6,29 @@
   <% end %>
 </div>
 
-<div class="switch">
-    <button class="users">自分が書いた感想</button>
-    <button class="likes">押した♡ </button>
-</div>
-<div id="likes">
-  <%= render partial: 'users/likes', locals: { likes: @likes } %>
-</div>
-<div id="users">
+    <button class="switch-impressions">自分が書いた感想</button>
+    <button class="switch-likes">押した♡ </button>
+
+<div class="show-impressions">
   <%= render partial: 'users/user', locals: { impressions: @impressions } %>
+</div>
+
+<div class="show-likes">
+  <%= render partial: 'users/likes', locals: { likes: @likes } %>
 </div>
 
 <script>
 // ここの処理間違えている何をしたいのかがわからない
+# hemlの定義から変える
   $(function(){
-    $('.likes').click(function(){
-      $('#users').removeClass('active');
-      $('#likes').addclass('active');
-    });
-    $('.users').click(function(){
-      $('#likes').removeClass('active');
-      $('#users').addClass('active');
-    });
+    $('button').($('.switch-impressions')).click(function(){
+        # $('#show-likes').removeClass('active');
+        $('.show-impressions').css('display', 'block');
+      });
+      $('button').($('.switch-likes')).click(function(){
+        # $('#show-impressions').removeClass('active');
+        $('.show-likes').css('display', 'block');
+      });
   });
 </script>
 
