@@ -18,22 +18,6 @@
 <div id="pos" style="position:fixed;left:5px;bottom:5px;user-select:none"></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-  $(function(){
-    $('#back-to-top').hide();
-    $(window).scroll(function(){
-      $('#pos').text($(this).scrollTop());
-      if ($(this).scrollTop() > 60) {
-        $('#back-to-top').fadeIn();
-      } else {
-        $('#back-to-top').fadeOut();
-      }
-    });
-    $('#back-to-top a').on('click', function(){
-      $('body').animate({
-        scrollTop:0
-      }, 500);
-      return false;
-    });
-  });
+<script src="libraryApp/index.js">
+
 </script>

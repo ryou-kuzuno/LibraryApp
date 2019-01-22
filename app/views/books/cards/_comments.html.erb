@@ -1,6 +1,6 @@
-<%# コメントがされたらここに表示される。コメントが古いほうが上に出る %>
-<%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
-<%# comments = Comment.where(impression_id: params[:impression_id]) %>
+# コメントがされたらここに表示される。コメントが古いほうが上に出る
+# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化
+# comments = Comment.where(impression_id: params[:impression_id])
 <div class="new_comments">
   <% comments.each_with_index do |comment, index| %>
     <p><%= index %>:<%= comment.comment %></p>
@@ -11,7 +11,7 @@
   <% end %>
 </div>
 <div class="comment-form" >
-<%# model: Comment.new でなくても行けた %>
+# model: Comment.new でなくても行けた
   <%= form_with model: Comment, url: '/comments/create' do |form| %>
     <div class="comment">
       <%= form.label :コメント %>
@@ -24,40 +24,6 @@
     </div>
   <% end %>
 </div>
-<script>
- $(function () {
-   $('#button_form').click(function () {
-      var self = $(this);
-      var userId = $("#comment_user_id").val();
-      var impressionId = $("#comment_impression_id").val();
-      var comment = $("#comment_comment").val();
-      $.ajax({
-        url: '/comments/create',
-        type: 'POST',
-        dataType: "json",
-        timespan: 2000,
-        data: {
-          'user_id' : userId,
-          'impression_id' : impressionId,
-          'comment' : comment,
-        }
-      })
-      .done((data) => {
-        // ◯◯Fieldなので、$("id名")までで終わる。（中身を取り出しているなら、変数も◯◯FieldValとかになるはず）
-        $('#comment_comment').val("");
-        var newComment = data.comment;
-        var pTag = $("<p>");
-        pTag.html(newComment);
-        $('.new_comments').after(pTag);
-        console.log(data.comment);
-        console.log("success");
-      })
-      .fail((data) => {
-        console.log("fail");
-      })
-      .always((data) => {
-        console.log("always");
-      });
-   });
-  });
+<script src="libraryApp/comment.js">
+
 </script>
