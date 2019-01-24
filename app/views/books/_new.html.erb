@@ -1,6 +1,6 @@
-# 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたいが、フォームを分けることは、コントローラーで紐づいているためできないので、if で分けるが、
+<% # 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたいが、フォームを分けることは、コントローラーで紐づいているためできないので、if で分けるが、%>
 <% book = Book.new %>
-# book.submitだと結局submitになってしまっているので、submitパーツ以外にする
+<% # book.submitだと結局submitになってしまっているので、submitパーツ以外にする%>
 <div class="write-new">
   <div class="close-modal">とじます</div>
   <%= form_with url:'/books/create', local: true, method: :post  do |form| %>

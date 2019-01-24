@@ -1,6 +1,6 @@
 <%= link_to "新着一覧に戻ります", "/index"%>
-# jsで動かすためのidとして区別できるように、「js」 をつけることがある
-# この部分は、唯一の要素としたいので、idで要素を指定している
+<% # jsで動かすためのidとして区別できるように、「js」 をつけることがある%>
+<% # この部分は、唯一の要素としたいので、idで要素を指定している%>
 <div class="card-show" id="js-card-show" data-user-id="<%= @current_user.id %>" data-book-id="<%= @book.id %>">
   <div class="card-image">
     <% if @book.image.attached? %>
@@ -13,7 +13,7 @@
     <p>タイトル</p>
     <h1><%= @book.title %></h1>
   </div>
-  #  1つの本に対して感想は複数存在する
+  <% #  1つの本に対して感想は複数存在する%>
   <div class="card-text">
     <% @impressions.each_with_index do |impressions, index| %>
     <p>題名</p>
@@ -22,7 +22,7 @@
     <p><%= impressions.impressions %></p>
     <div class="card-under">
         <% if Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
-          #メモ
+          <% #メモ
           #そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
           #パラメータを渡してなにか処理をする、といった場合はformを使う %>
           <span data-liked="true" data-impression-id="<%= impressions.id %>" class="material-icons hart">favorite</span>
@@ -44,7 +44,7 @@
 </div>
 </div>
 
-# イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" }
+<% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" }%>
 <%= render partial: 'books/cards/comments', locals: { impression_id: impressions.id, comments: impressions.comments } %>
 <% end %>
 

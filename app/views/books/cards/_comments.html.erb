@@ -1,6 +1,6 @@
-# コメントがされたらここに表示される。コメントが古いほうが上に出る
+<% # コメントがされたらここに表示される。コメントが古いほうが上に出る
 # 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化
-# comments = Comment.where(impression_id: params[:impression_id])
+# comments = Comment.where(impression_id: params[:impression_id])%>
 <div class="new_comments">
   <% comments.each_with_index do |comment, index| %>
     <p><%= index %>:<%= comment.comment %></p>
@@ -11,7 +11,7 @@
   <% end %>
 </div>
 <div class="comment-form" >
-# model: Comment.new でなくても行けた
+<% # model: Comment.new でなくても行けた%>
   <%= form_with model: Comment, url: '/comments/create' do |form| %>
     <div class="comment">
       <%= form.label :コメント %>

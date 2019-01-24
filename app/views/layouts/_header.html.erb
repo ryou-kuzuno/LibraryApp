@@ -1,6 +1,6 @@
 <header class="header">
   <div class="header-div">
-    # userログイン時に表示
+    <% # userログイン時に表示%>
     <% if @current_user %>
       <ul>
         <li class="write-modal">押すと感想書ける</li>　
@@ -15,7 +15,7 @@
       </ul>
         <div class="hidden_box">
           <label for="label1">設定</label>
-          # 隠しバー　同じulタグ内に置かないのは全部いっぺんに要素が大きくなるのを避けるため
+          <% # 隠しバー　同じulタグ内に置かないのは全部いっぺんに要素が大きくなるのを避けるため%>
           <input type="checkbox" id="label1"/>
           <div class="hidden_show">
             <!--ここに隠す中身-->
@@ -23,7 +23,7 @@
             <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "/logout" %>
           </div>
         </div>
-    # user非ログイン時
+    <% # user非ログイン時%>
     <% else%>
       <ul>
         <li><%= link_to "人気の20件見るなら押す", "/index" %></li>
