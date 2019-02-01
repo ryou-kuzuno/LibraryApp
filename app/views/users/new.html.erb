@@ -9,7 +9,8 @@
       <%= form_with url: "/users/create", local: true do |form| %>
         <%= form.text_field :nicename, :placeholder => "ユーザー名" %>
         <%= form.email_field :mail, :placeholder => "メールアドレス" %>
-        <%= form.text_field :password, :placeholder => "パスワード" %>
+        <%= form.password_field :password, :placeholder => "パスワード" %>
+        <%# form.password_field :password_confirmation, :placeholder => "パスワード" %>
         <%= form.submit '新規登録' %>
       <% end %>
   </div>

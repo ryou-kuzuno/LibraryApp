@@ -16,11 +16,13 @@ class UsersController < ApplicationController
   def create
     # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
     #form_forでの取り出し方
+    # @user.authenticate(params[:password_confirmation])
     @user = User.new(
       nicename: params["nicename"],
       mail: params["mail"],
       password: params["password"],
     )
+
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "ユーザー登録が完了しました"

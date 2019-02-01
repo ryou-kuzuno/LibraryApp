@@ -1,4 +1,9 @@
+// フォルダ名　名前空間としての
+var LibraryApp = LibraryApp || function LibraryApp() {};
+
+LibraryApp.comment = function () {};
 $(function () {
+  LibraryApp.comment.prototype.init
   $('#button_form').click(function () {
      var self = $(this);
      var userId = $("#comment_user_id").val();
