@@ -45,5 +45,7 @@
   </div>
 <% end %>
 
-<script src="assets/javascripts/libraryApp/header.js">
-</script>
+<% # このような記述もできるが、今回の用途には向かない。そもそも、application.jsで作成したjsを読み込んでいるので、記述は不要 %>
+<% if(false) %>
+<script src="<%= File.join(Rails.root, 'app/assets/javascripts/libraryApp/header.js') %>"></script>
+<% end %>
