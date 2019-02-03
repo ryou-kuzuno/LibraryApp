@@ -20,7 +20,7 @@
           <div class="hidden_show">
             <!--ここに隠す中身-->
             <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit" %>
-            <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "/logout" %>
+            <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "logout" %>
           </div>
         </div>
     <% # user非ログイン時%>
@@ -44,6 +44,7 @@
     <%= render partial: 'books/new'%>
   </div>
 <% end %>
-
-<script src="assets/javascripts/libraryApp/header.js">
-</script>
+<% if false %>
+  <script src="assets/javascripts/libraryApp/header.js">
+  </script>
+<% end %>

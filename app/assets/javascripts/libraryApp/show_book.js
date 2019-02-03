@@ -1,5 +1,9 @@
-$(function () {
+var LibraryApp = LibraryApp || function LibraryApp() {};
+
+LibraryApp.Show_book = function() {};
+(function () {
 // userIdとbookIdはページローディング時に毎回固定されるので、一度だけ読み込むようにする
+  LibraryApp.Show_book.prototype.init = function() {
     var userId = $("#js-card-show").data("user-id");
     var bookId = $("#js-card-show").data("book-id");
     $('.material-icons').click(function () {
@@ -72,6 +76,12 @@ $(function () {
         .always((data) => {
           console.log("always");
         });
-    }
-  });
-});
+      }
+    });
+  }
+}());
+
+window.addEventListener("load", function() {
+  var show_book = new LibraryApp.Show_book();
+  show_book.init();
+}, false);
