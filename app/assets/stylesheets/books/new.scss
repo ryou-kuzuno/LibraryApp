@@ -16,7 +16,7 @@
     background-color: #e6ecf0;
     padding: 20px 0 40px;
     border-radius: 10px;
-    width: 550px;
+    width: 650px;
     height: auto;
     text-align: center;
     .close-modal{
@@ -35,21 +35,26 @@
     }
     .card-right {
         .author {
-            width: 300px;
+            width: 330px;
             box-sizing: border-box;
-            font-size: 16px;
+            font-size: 20px;
             border: none;
             border-radius: 5px;
         }
         .title {
-            width: 300px;
+            width: 330px;
             box-sizing: border-box;
-            font-size: 16px;
+            font-size: 20px;
             border: none;
             border-radius: 5px;
         }
     }
 }
+
+.new-button {
+  font-size: 15px;
+}
+
 .warning {
     color: red;
 }

@@ -21,7 +21,7 @@
 
 body {
     background-color: #e0e7e8;
-    font-size: 20px;
+    font-size: 25px;
     margin: 0 100px 0 0;
 }
 
@@ -35,7 +35,7 @@ body {
     z-index: 10;
     width: 100%;
     border-radius: 0 0 2px 2px;
-    font-size: 14px;
+    font-size: 20px;
 }
 .form-error {
     color: #ff4d75;
@@ -44,7 +44,7 @@ body {
 textarea {
     width: 300px;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     border-radius: 5px;
     :focus {

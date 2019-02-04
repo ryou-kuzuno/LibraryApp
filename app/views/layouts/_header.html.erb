@@ -18,7 +18,6 @@
           <% # 隠しバー　同じulタグ内に置かないのは全部いっぺんに要素が大きくなるのを避けるため%>
           <input type="checkbox" id="label1"/>
           <div class="hidden_show">
-            <!--ここに隠す中身-->
             <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit" %>
             <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "logout" %>
           </div>
@@ -26,7 +25,7 @@
     <% # user非ログイン時%>
     <% else%>
       <ul>
-        <li><%= link_to "人気の20件見るなら押す", "/index" %></li>
+        <li><%= link_to "新着の20件見るなら押す", "/index" %></li>
         <li><%= link_to "ログインするなら押す", "/" %></li>
         <li><%= link_to "新規に登録するなら押す", "/signup" %></li>
         <li  class="search">

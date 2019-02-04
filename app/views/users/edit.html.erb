@@ -5,11 +5,11 @@
 <% end %>
 
 <%= form_with model: @user, url: "update", local: true do |form| %>
-  <div class="#">
+  <div class="edit-user-name">
     <%= form.label :ユーザー名, :class => "name_form" %>
     <%= form.text_field :nicename %>
   </div>
-  <div class="#">
+  <div class="edit-user-mail">
     <%= form.label :メールアドレス, :class => "mail_form" %>
     <%= form.email_field :mail %>
   </div>

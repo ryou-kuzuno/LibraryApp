@@ -8,10 +8,10 @@ LibraryApp.Search_page = function () {};
     var num = Math.floor(Math.random() * results.length);
     $(this).text(results[num]);
   });
-  $('button').on('click', function(){
+  $('.search-button').on('click', function(){
       $('.sanplu').toggle();
     if ($('.sanplu').toggle()){
-      $('button').text("見るよ！");
+      $('.search-button').text("見るよ！");
       $('.sanplu').toggle();
     }
   });

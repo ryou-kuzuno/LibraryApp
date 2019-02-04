@@ -17,19 +17,14 @@ class UsersController < ApplicationController
     # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
     #form_forでの取り出し方
     # @user.authenticate(params[:password_confirmation])
-    @user = User.new(
-      nicename: params["nicename"],
-      mail: params["mail"],
-      password: params["password"],
-    )
-
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "ユーザー登録が完了しました"
-      redirect_to "/index"
-    else
-      render "signup"
-    end
+    @user = User.new(user_params)
+      if @user.save
+        session[:user_id] = user.id
+        flash[:notice] = "ユーザー登録が完了しました"
+        redirect_to "/index"
+      else
+        render "signup"
+      end
   end
 
   def edit
@@ -54,7 +49,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(
       mail: params['mail'],
-      password: params['password'],
+      password_digest: params['password_digest'],
     )
     if @user
       session[:user_id] = @user.id
@@ -62,7 +57,6 @@ class UsersController < ApplicationController
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @mail = params['mail']
-      @password = params['password']
       # render :action => "login_form" # postで/loginを打っているからurlが残るrenderがかかっていない
       render "/"
     end
@@ -71,6 +65,7 @@ class UsersController < ApplicationController
   def logout
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
+    redirect_to "/index"
   end
 
   def ensure_correct_user
@@ -78,5 +73,11 @@ class UsersController < ApplicationController
       flash[:notice] = "権限がありません"
       redirect_to "/index"
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:nicename, :mail, :password, :password_confirm)
   end
 end
