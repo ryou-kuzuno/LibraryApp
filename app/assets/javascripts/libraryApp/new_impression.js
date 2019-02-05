@@ -1,5 +1,5 @@
 var LibraryApp = LibraryApp || function LibraryApp() {};
-// 文字数みたいなやつ
+// 文字数カウント
 LibraryApp.New_impression = function () {};
 (function(){
   LibraryApp.New_impression.prototype.init = function() {
