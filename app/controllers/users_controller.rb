@@ -20,10 +20,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     # @user.authenticate(@user.password)
       if @user.save
-        session[:user_id] = user.id
+        session[:user_id] = @user.id
         flash[:notice] = "ユーザー登録が完了しました"
         redirect_to "/index"
       else
+        # @todo こちらのtemplateが見つからない問題は修正していない
         render "signup"
       end
   end
@@ -79,8 +80,9 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    raise params.inspect
-    binding.pry
-    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
+    # raise params.inspect
+    # binding.pry
+    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation, :password_digest)
+    # params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
   end
 end
