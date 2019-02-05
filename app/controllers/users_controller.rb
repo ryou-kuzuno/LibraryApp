@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     #form_forでの取り出し方
     # @user.authenticate(params[:password_confirmation])
     @user = User.new(user_params)
-    @user.authenticate("password")
+    # @user.authenticate(@user.password)
       if @user.save
         session[:user_id] = user.id
         flash[:notice] = "ユーザー登録が完了しました"
@@ -79,6 +79,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:nicename, :mail, :password, :password_digest)
+    raise params.inspect
+    binding.pry
+    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
   end
 end

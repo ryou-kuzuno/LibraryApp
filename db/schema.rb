@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2018_12_08_024653) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nicename"
     t.string "mail"
-    t.string "password_digest"
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

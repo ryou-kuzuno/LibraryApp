@@ -1,6 +1,5 @@
 var LibraryApp = LibraryApp || function LibraryApp() {};
-// ここの処理間違えている何をしたいのかがわからない
-//  hemlの定義から変える
+// ここの処理間違えている何をしたいのかがわからないhemlの定義から変える
 LibraryApp.show_user = function () {};
 (function(){
   LibraryApp.show_user.prototype.init = function() {
@@ -19,4 +18,3 @@ window.addEventListener("load", function() {
   var show_user = new LibraryApp.show_user();
   show_user.init();
 }, false);
-// 名前を統一させる
