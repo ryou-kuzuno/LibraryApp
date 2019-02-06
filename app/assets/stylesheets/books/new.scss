@@ -26,30 +26,32 @@
         background: #668ad8;/*ボタン色*/
         color: #FFF;
         border-bottom: solid 4px #627295;
-        border-radius: 3px;
+        border-radius: 25px;
         cursor: pointer;
     }
     .close-modal:active {/*ボタンを押したとき*/
         transform: translateY(4px);/*下に動く*/
         border-bottom: none;/*線を消す*/
     }
-    .card-right {
-        .author {
-            width: 330px;
-            box-sizing: border-box;
-            font-size: 20px;
-            border: none;
-            border-radius: 5px;
-        }
-        .title {
-            width: 330px;
-            box-sizing: border-box;
-            font-size: 20px;
-            border: none;
-            border-radius: 5px;
-        }
+
+    input {
+        width: 250px;
+        box-sizing: border-box;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 2px;
     }
 }
+
+
+// .title {
+//     width: 330px;
+//     box-sizing: border-box;
+//     font-size: 25px;
+//     border: none;
+//     border-radius: 5px;
+// }
 
 .new-button {
   font-size: 15px;

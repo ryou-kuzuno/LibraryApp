@@ -19,7 +19,7 @@
           <input type="checkbox" id="label1"/>
           <div class="hidden_show">
             <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit" %>
-            <%= link_to "退会フォームにすべきでしょうかね？ログアウトしますか？", "logout" %>
+            <%= link_to "ログアウトしますか？", "/logout" %>
           </div>
         </div>
     <% # user非ログイン時%>

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: @current_user)
+    # binding.pry
     @impressions = Impression.where(user_id: @current_user)
     @likes = Like.where(user_id: @user.id)
   end
@@ -68,13 +69,6 @@ class UsersController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "ログアウトしました"
     redirect_to "/index"
-  end
-
-  def ensure_correct_user
-    if @current_user.id != @current_user.to_i
-      flash[:notice] = "権限がありません"
-      redirect_to "/index"
-    end
   end
 
   private

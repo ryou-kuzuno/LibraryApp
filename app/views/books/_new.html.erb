@@ -6,14 +6,13 @@
   <%= form_with url:'/books/create', local: true, method: :post  do |form| %>
   <div class="new-card">
     <div class="card-image">
-      <%= form.label :好きな画像を選んでね %><br>
       <%= form.file_field :image %>
     </div>
     <div class="card-right">
         <%= form.text_field :author, html: { class: 'author' }, :placeholder => "作者の名前" %>
         <%= form.text_field :title, html: { class: 'title' }, :placeholder => "本のタイトル" %>
     </div>
-    <div class="card-text">
+    <div class="card-write">
       <%=  form.fields_for book.impressions.new do |field| %>
         <%= field.hidden_field :user_id, :value =>  @current_user %>
         <%= field.text_area :story, html: { class: 'story' }, :placeholder => "あらすじ" %>
