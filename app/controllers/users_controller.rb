@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: @current_user)
-    # binding.pry
     @impressions = Impression.where(user_id: @current_user)
     @likes = Like.where(user_id: @user.id)
   end
@@ -15,12 +14,12 @@ class UsersController < ApplicationController
 
   # 新規登録
   def create
-    # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
     #form_forでの取り出し方
     # @user.authenticate(params[:password_confirmation])
     @user = User.new(user_params)
     # @user.authenticate(@user.password)
       if @user.save
+        # @user.authenticate(@user.password_digest)
         session[:user_id] = @user.id
         flash[:notice] = "ユーザー登録が完了しました"
         redirect_to "/index"
@@ -50,18 +49,20 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find_by(
-      mail: params['mail'],
-      password_digest: params['password_digest'],
-    )
-    if @user
-      session[:user_id] = @user.id
+    # user = User.find_by(
+    #   mail: params['mail'],
+    #   password_digest: params['password'],
+    # )
+    # binding.pry
+    user = User.find_by(mail: params['mail'])
+    if user && user.authenticate(params['password'])
+      # user.authenticate(user.password_digest)
+      session[:user_id] = user.id
       redirect_to "/index"
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
-      @mail = params['mail']
       # render :action => "login_form" # postで/loginを打っているからurlが残るrenderがかかっていない
-      render "/"
+      redirect_to "/"
     end
   end
 
@@ -75,8 +76,6 @@ class UsersController < ApplicationController
 
   def user_params
     # raise params.inspect
-    # binding.pry
-    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation, :password_digest)
-    # params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
+    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
   end
 end

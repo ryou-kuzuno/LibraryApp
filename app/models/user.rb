@@ -1,9 +1,7 @@
 class User < ApplicationRecord
     validates :nicename, { presence: true }
     validates :mail, { presence: true, uniqueness: true }
-    # validates :password_digest, { presence: true }
     has_secure_password
-    # validates :password, { presence: true }
 
     belongs_to :book, optional: true
     has_many :impressions

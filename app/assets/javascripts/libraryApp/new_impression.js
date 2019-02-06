@@ -3,8 +3,7 @@ var LibraryApp = LibraryApp || function LibraryApp() {};
 LibraryApp.New_impression = function () {};
 (function(){
   LibraryApp.New_impression.prototype.init = function() {
-    var comment = $(this).data('comment');
-    var label = $(this).data('#label');
+    var comment = $(this).data('story');
     var LIMIT = 30;
   }
 }());
