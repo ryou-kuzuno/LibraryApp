@@ -10,7 +10,8 @@
         <%= form.text_field :nicename, :placeholder => "ユーザー名" %>
         <%= form.email_field :mail, :placeholder => "メールアドレス" %>
         <%= form.password_field :password, :placeholder => "パスワード" %>
-        <%= form.password_field :password_confirmation, :placeholder => "確認のためにもう一度パスワードをお願いします" %>
+        <% # 下は要らない？%>
+        <%# form.password_field :password_confirmation, :placeholder => "確認のためにもう一度パスワードをお願いします" %>
         <%= form.submit '新規登録' %>
       <% end %>
   </div>

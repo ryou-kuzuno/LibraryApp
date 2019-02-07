@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
       @books = Book.(params[:search])
     end
 
+    # def redirect_to_with_moved_permanently(options = {}, response_status = {})
+    #   response_status.reverse_merge!(status: :moved_permanently)
+    #   redirect_to_without_moved_permanently(options, response_status)
+    # end
+    # alias_method_chain :redirect_to, :moved_permanently
+
     private
 
     def books_params
