@@ -51,8 +51,8 @@ class UsersController < ApplicationController
   def login
     # user = User.find_by(
     #   mail: params['mail'],
-    #   password_digest: params['password'],
-    # )
+    #   password_digest: params['password'],ここで探し出した文字列では暗号化された文字列と一致しない。
+    # ) ↗︎そのためのauthnticateメソッド
     # binding.pry
     user = User.find_by(mail: params['mail'])
     if user && user.authenticate(params['password'])
