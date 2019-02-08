@@ -14,13 +14,9 @@ class UsersController < ApplicationController
 
   # 新規登録
   def create
-    #form_forでの取り出し方
-    # @user.authenticate(params[:password_confirmation])
-    @user = User.new(user_params)
-    # @user.authenticate(@user.password)
-      if @user.save
-        # @user.authenticate(@user.password_digest)
-        session[:user_id] = @user.id
+    user = User.new(user_params)
+      if user.save
+        session[:user_id] = user.id
         flash[:notice] = "ユーザー登録が完了しました"
         redirect_to "/index"
       else
@@ -35,12 +31,12 @@ class UsersController < ApplicationController
 
   def update
     parameter = params.require(:user).permit(:nicename, :email)
-    @user = User.find_by(id: @current_user)
-    if @user.update_attributes(parameter)
+    user = User.find_by(id: @current_user)
+    if user.update_attributes(parameter)
       flash[:notice] = "ユーザー情報を編集しました"
-      redirect_to "/users/#{@user.id}"
+      redirect_to "/users/#{user.id}"
     else
-      render "users/#{@user.id}/edit"
+      render "users/#{user.id}/edit"
     end
   end
 
@@ -53,10 +49,8 @@ class UsersController < ApplicationController
     #   mail: params['mail'],
     #   password_digest: params['password'],ここで探し出した文字列では暗号化された文字列と一致しない。
     # ) ↗︎そのためのauthnticateメソッド
-    # binding.pry
     user = User.find_by(mail: params['mail'])
     if user && user.authenticate(params['password'])
-      # user.authenticate(user.password_digest)
       session[:user_id] = user.id
       redirect_to "/index"
     else
