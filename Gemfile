@@ -59,6 +59,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'bcrypt', '~> 3.1.7'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
