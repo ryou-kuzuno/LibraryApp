@@ -70,6 +70,6 @@ class UsersController < ApplicationController
 
   def user_params
     # raise params.inspect
-    params.require(:user).permit(:nicename, :mail, :password, :password_confirmation)
+    params.require(:user).permit(:nicename, :mail, :password, :password_digest)
   end
 end
