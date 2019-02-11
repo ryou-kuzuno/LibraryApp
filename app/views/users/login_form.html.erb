@@ -9,7 +9,7 @@
     <%= form_with url: "/login", local: true do |form| %>
       <div class="login-form">
         <%= form.email_field :mail, :placeholder => "めーるあどれす" %>
-        <%= form.password_field :password, :placeholder => "パスワード" %>
+        <%= form.password_field :password, :placeholder => "パスワード", :autocomplete => "on"  %>
       <div class="btn-form">
         <%= form.submit 'ログイン' %>
       </div>
