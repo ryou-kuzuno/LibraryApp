@@ -52,7 +52,7 @@ production:
   adapter: postgresql
   encoding: utf8
   pool: 5
-  database: LibraryApp_production
+  database: df61vv59or6mve
   username: LibraryApp
   # password: <%= ENV['LIBRARYAPP_DATABASE_PASSWORD'] %>
   password: root
