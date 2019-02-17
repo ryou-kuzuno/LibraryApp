@@ -1,11 +1,13 @@
 <div class="form-heading">ログイン画面</div>
 <div class="form">
   <div class="form-body">
+
     <% if @error_message %>
       <div class="form-error">
         <%= @error_message %>
       </div>
     <% end %>
+
     <%= form_with url: "/login", local: true do |form| %>
       <div class="login-form">
         <%= form.email_field :mail, :placeholder => "めーるあどれす" %>

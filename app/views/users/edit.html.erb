@@ -1,7 +1,9 @@
-<% @user.errors.full_messages.each do |message| %>
-  <div class="form-error">
-    <%= message %>
-  </div>
+<% if @user.errors.full_messages %>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="form-error">
+      <%= message %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= form_with model: @user, url: "update", local: true do |form| %>
