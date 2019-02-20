@@ -1,4 +1,4 @@
-var LibraryApp = LibraryApp || function LibraryApp() {Index()};
+var LibraryApp = LibraryApp || function LibraryApp(Index) {};
 
 LibraryApp.Index = function () {};
 (function(){

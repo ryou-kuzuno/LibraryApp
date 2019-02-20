@@ -1,4 +1,4 @@
-var LibraryApp = LibraryApp || function LibraryApp() {Header()};
+var LibraryApp = LibraryApp || function LibraryApp(Header) {};
 // フォルダ名　名前空間としての
 
 LibraryApp.Header = function () {};
