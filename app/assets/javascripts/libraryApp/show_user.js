@@ -1,4 +1,4 @@
-var LibraryApp = LibraryApp || function LibraryApp() {};
+var LibraryApp = LibraryApp || function LibraryApp() {show_user()};
 // ここの処理間違えている何をしたいのかがわからないhemlの定義から変える
 LibraryApp.show_user = function () {};
 (function(){
