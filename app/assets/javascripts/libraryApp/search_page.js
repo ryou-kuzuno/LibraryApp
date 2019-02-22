@@ -1,4 +1,4 @@
-var LibraryApp = LibraryApp || function LibraryApp(Search_page) {};
+var LibraryApp = LibraryApp || function LibraryApp() {};
 
 LibraryApp.Search_page = function () {};
 (function() {

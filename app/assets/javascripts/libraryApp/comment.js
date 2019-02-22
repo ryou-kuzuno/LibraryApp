@@ -1,5 +1,5 @@
 // フォルダ名　名前空間としての
-var LibraryApp = LibraryApp || function LibraryApp(Comment) {};
+var LibraryApp = LibraryApp || function LibraryApp() {};
 
 LibraryApp.Comment = function () {};
 (function () {

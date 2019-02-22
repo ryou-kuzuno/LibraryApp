@@ -1,4 +1,4 @@
-var LibraryApp = LibraryApp || function LibraryApp(Show_book) {};
+var LibraryApp = LibraryApp || function LibraryApp() {};
 
 LibraryApp.Show_book = function() {};
 (function () {
