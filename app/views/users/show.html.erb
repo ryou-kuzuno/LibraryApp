@@ -16,5 +16,17 @@
   <%= render partial: 'users/likes', locals: { likes: @likes } %>
 </div>
 
+<script>
+$(function(){
+  $('.switch-impressions').click(function(){
+         $('#show-likes').removeClass('active');
+         $('.show-likes').css('display', 'none');
+       });
+     $('.switch-likes').click(function(){
+         $('#show-impressions').removeClass('active');
+         $('.show-impressions').css('display', 'none');
+       });
+});
+</script>
 
 

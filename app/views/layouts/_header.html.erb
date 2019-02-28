@@ -47,3 +47,13 @@
   <script src="assets/javascripts/libraryApp/header.js">
   </script>
 <% end %>
+<script>
+$(function() {
+  $('.write-modal').click(function(){
+    $('.write').fadeIn();
+  });
+  $('.close-modal').click(function(){
+    $('.write').fadeOut();
+  });
+});
+</script>
