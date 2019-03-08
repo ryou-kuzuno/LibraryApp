@@ -1,13 +1,14 @@
 <%= form_with model: @impression, url: "/impression/update", local: true do |form| %>
   <div class="card">
-    <div class="card-top">
       <%= form.hidden_field :book_id %>
+
       <div class="card-image">
         <% if @book.image.attached? %>
           <%= image_tag @book.image %>
         <% end %>
         <%= form.file_field :image %>
       </div>
+
       <div class="story">
         <%= form.label :あらすじ %>
         <%= form.text_area :story %>
@@ -16,8 +17,8 @@
         <%= form.label :感想 %>
         <%= form.text_area :impressions %>
       </div>
-    </div>
   </div>
+
   <div class="save_form">
     <%= form.submit '保存' %>
   </div>
