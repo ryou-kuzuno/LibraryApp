@@ -1,17 +1,18 @@
-<% # コメントがされたらここに表示される。コメントが古いほうが上に出る
-# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化
+<% # 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化
 # comments = Comment.where(impression_id: params[:impression_id])%>
 <div class="new_comments">
   <% comments.each_with_index do |comment, index| %>
-    <p><%= index %>:<%= comment.comment %></p>
+    <p><%= index +1 %>番目の<%= comment.comment %></p>
+
     <% if comment.user_id %>
       <div class="comment-del"><%= link_to "コメントを削除する", "/impression_id/destroy" %></div>
     <% end %>
-    <p>-----------</p>
+
+    <p>--区切り--</p>
   <% end %>
 </div>
+
 <div class="comment-form" >
-<% # model: Comment.new でなくても行けた%>
   <%= form_with model: Comment, url: '/comments/create' do |form| %>
     <div class="comment">
       <%= form.label :コメント %>
@@ -20,7 +21,7 @@
       <%= form.hidden_field :impression_id, :value => impression_id %>
     </div>
     <div class="btn-form">
-      <button id="button_form" type="button" >送信</button>
+      <button id="button_form" type="button">送信</button>
     </div>
   <% end %>
 </div>
@@ -59,5 +60,5 @@ $(function () {
        console.log("always");
      });
   });
-}); 
+});
 </script>

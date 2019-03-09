@@ -38,11 +38,13 @@
     <% end %>
   </div>
 </header>
+
 <% if @current_user %>
   <div class="write">
-    <%= render partial: 'books/new'%>
+    <%= render partial: 'books/new' %>
   </div>
 <% end %>
+
 <script>
 $(function() {
   $('.write-modal').click(function(){

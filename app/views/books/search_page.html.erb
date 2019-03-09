@@ -3,12 +3,12 @@
   <div id="btn">?</div>
 <% else %>
   <div class="sanplu">
-  <% @books.each do |book| %>
-  <div class="title-author">
-    <%= link_to book.title, "/show/#{book.id}" %>
-    <%= book.author %>
-  </div>
-  <% end %>
+    <% @books.each do |book| %>
+    <div class="title-author">
+      <%= link_to book.title, "/show/#{book.id}" %>
+      <%= book.author %>
+    </div>
+    <% end %>
   </div>
   <button class="search-button">検索結果を見ない</button>
 <% end %>
