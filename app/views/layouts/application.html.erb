@@ -16,9 +16,7 @@
     <% # メモ：viewsのフォルダをrootとして、そこからのパスを指定する%>
     <%= render partial: 'layouts/header' %>
     <% unless @current_user %>
-      <% link_to "ログインする", "/login" %>
-      <% link_to "新期登録", "/signup" %>
-      <p>ログインがまだなので感想やコメントは書き込めません</p>
+      <p style="padding: 60px 0 0 60px">ログインがまだなので感想やコメントは書き込めません</p>
     <% end %>
     <%= h(flash[:notice]) %>
     <div class="content">
