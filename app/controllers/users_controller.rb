@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         redirect_to "/index"
       else
         # @todo こちらのtemplateが見つからない問題は修正していない
-        redirect_to "signup"
+        redirect_to "/signup"
       end
   end
 
