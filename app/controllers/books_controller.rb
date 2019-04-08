@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
   before_action :user_logged_in, only: [:show, :reply, :create, :edit]
 
-    #感想一覧を表示するアクション
     def index
       @near_books = Book.all.last(2)
       @books = Book.page(params[:page]).per(10).order('created_at DESC')
@@ -26,13 +25,11 @@ class BooksController < ApplicationController
     end
 
     #新しく感想を投稿する画面のアクションはheaderからrenderの_new.html.erb
-    #感想の編集画面のアクション
     def edit
       @book = Book.find(params[:book_id])
       @impression = Impression.find_by(book_id: params[:book_id])
     end
 
-    #新しい投稿を作成するアクション
     def create
       # book_idを確定させるために先に@book.saveをしておく必要がある。
       # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
@@ -42,7 +39,7 @@ class BooksController < ApplicationController
         user_id: @current_user.id
       )
       @book.image.attach(params[:image])
-      # book.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
+      # bookモデルにて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
       # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
       impression = @book.impressions.build(
         story: params["impression"]["story"],
@@ -54,11 +51,10 @@ class BooksController < ApplicationController
         redirect_to "/index"
       else
         @erorr_message = "送信失敗しました。"
-        render 'index'
+        render "index"
       end
     end
 
-    #投稿の編集内容を反映するアクション
     def update
       @impression = Impression.find_by(book_id: params[:book_id])
       @impression.story = params[:impression][:story]
@@ -70,13 +66,12 @@ class BooksController < ApplicationController
       end
     end
 
-    #投稿内容を削除するためのアクション
-    #modelにひつようdependent: :destroy
+    #model　に　dependent: :destroy　が必須
     def destroy
       @book = Book.find(params[:id])
       @book.destroy
       redirect_to "/index"
-      # 力技のコード☟
+      # 元のコード☟
       # @book = Book.find(params[:id])
       # @impressions = @book.impressions
       # @impressions.each do |impression|

@@ -26,7 +26,6 @@ class CommentsController < ApplicationController
     # redirect_to "/show/#{params[:comment][:book_id]}"
   end
 
-  #コメントを削除するアクション
   def destroy
     comment = Comment.find(params[:id])
     comment.delete
